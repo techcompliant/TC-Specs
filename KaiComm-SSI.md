@@ -19,7 +19,7 @@ KaiComm Synchronous Serial Interface
 | DCPU Device ID | 0xE57D9027 | (KaiComm SSI 2)
 |        Version | 0x0103     |
 
-The KaiComm SSI is a bi-directional data port with a 7 wire serial interface.
+The KaiComm SSI is a bi-directional data port. 
 Transmissions in either direction are independent of each other and can operate at different bauds.
 The size of the data primitive is selectable ranging from 1 to 4 octets.
 All data are assumed to be sent MSB first.
