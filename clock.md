@@ -13,6 +13,8 @@ Generic Clock
 |        Version | 1          | Fixed Version
 
 Device Description
+----
+Generic clock that ticks, occasionally tocks. 
 
 Interrupt Commands
 ----
