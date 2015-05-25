@@ -17,14 +17,14 @@ A generic input keyboard.
 Interrupt Commands
 ----
 
- - **0x0000**: CLEAR_BUFFER
- 	- 0: Clears the keyboard buffer.
- - **0x0001**: GET_NEXT
- 	- C: Store next key from buffer to C register, or 0 if the buffer is empty
- - **0x0002**: CHECK_KEY
- 	- B+C: Check if key in B is current pressed. Set C to result (1 = true, 0 =false)
- - **0x0003**: SET_INT
- 	- B: Interrupt message set to B. Zero to disable.
+- **0x0000**: CLEAR_BUFFER
+	- 0: Clears the keyboard buffer.
+- **0x0001**: GET_NEXT
+	- C: Store next key from buffer to C register, or 0 if the buffer is empty
+- **0x0002**: CHECK_KEY
+	- B+C: Check if key in B is current pressed. Set C to result (1 = true, 0 =false)
+- **0x0003**: SET_INT
+	- B: Interrupt message set to B. Zero to disable.
 
 
  Behaviours
