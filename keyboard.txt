@@ -1,19 +1,34 @@
-Name: Generic Keyboard (compatible)
-ID: 0x30cf7406
-Version: 1
+Generic Keyboard 
+----
 
-Interrupts do different things depending on contents of the A register:
+```
+---=I NEED A LOGO=---
+```
 
- A | BEHAVIOR
----+----------------------------------------------------------------------------
- 0 | Clear keyboard buffer
- 1 | Store next key typed in C register, or 0 if the buffer is empty
- 2 | Set C register to 1 if the key specified by the B register is pressed, or
-   | 0 if it's not pressed
- 3 | If register B is non-zero, turn on interrupts with message B. If B is zero,
-   | disable interrupts
----+----------------------------------------------------------------------------
+|     Item       |   Value    |   Comment
+| -------------: | ---------- | ----------------
+|    Vendor code | 0x1c6c8b36 | NYA Elektriska
+|      Device ID | 0x30cf7406 | Generic Keyboard
+|    Device type | 0x0000     | (TBD)
+|        Version | 1          | Fixed Version
 
+A generic input keyboard.
+
+Interrupt Commands
+----
+
+ - **0x0000**: CLEAR_BUFFER
+ 	- 0: Clears the keyboard buffer.
+ - **0x0001**: GET_NEXT
+ 	- C: Store next key from buffer to C register, or 0 if the buffer is empty
+- **0x0002**: CHECK_KEY
+ 	- B+C: Check if key in B is current pressed. Set C to result (1 = true, 0 =false)
+ - **0x0003**: SET_INT
+ 	- B: Interrupt message set to B. Zero to disable.
+
+
+ Behaviours
+ ----
 When interrupts are enabled, the keyboard will trigger an interrupt when one or
 more keys have been pressed, released, or typed.
 
