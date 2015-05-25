@@ -27,20 +27,20 @@ Interrupt Commands
 	- B: Interrupt message set to B. Zero to disable
 
 
- Behaviours
- ----
+Behaviours
+----
 When interrupts are enabled, the keyboard will trigger an interrupt when one or
 more keys have been pressed, released, or typed.
 
 Key numbers are:
-	0x10: Backspace
-	0x11: Return
-	0x12: Insert
-	0x13: Delete
-	0x20-0x7f: ASCII characters
-	0x80: Arrow up
-	0x81: Arrow down
-	0x82: Arrow left
-	0x83: Arrow right
-	0x90: Shift
-	0x91: Control
+-	0x10: Backspace
+-	0x11: Return
+-	0x12: Insert
+-	0x13: Delete
+-	0x20-0x7f: ASCII characters
+-	0x80: Arrow up
+-	0x81: Arrow down
+-	0x82: Arrow left
+-	0x83: Arrow right
+-	0x90: Shift
+-	0x91: Control
