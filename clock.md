@@ -19,9 +19,9 @@ Interrupt Commands
 
  - **0x0000**: SET_SPEED
  	- B: Clock is set to 60/B per second. Set B to zero to disable.
- - **0x0000**: GET_TICKS
+ - **0x0001**: GET_TICKS
  	- C: Number of ticks since last call in C
- - **0x0000**: SET_INT
+ - **0x0002**: SET_INT
  	- B: Interrupt message set to B. Zero to disable.
 
 
