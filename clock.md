@@ -26,5 +26,5 @@ Interrupt Commands
 
 
 Behaviours
- ----
+----
 When interrupts are enabled, the clock will trigger an interrupt on each tick 
