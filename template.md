@@ -20,6 +20,6 @@ Interrupt Commands
  - **0x0000**: Friendly name of command
 
 
- Behaviours
- ----
- List any unquie behaviours that should be simulated. 
+Behaviours
+----
+List any unquie behaviours that should be simulated. 
