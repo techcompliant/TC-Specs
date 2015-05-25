@@ -1,0 +1,80 @@
+
+Embedded Display Controller
+
+vendor: 0x59EA5742 - Meisaka
+device: 0xED73E4FF - EDC
+
+version code determines the display size and characteristics
+bit 15 <--- ---- ---- ---> 0
+       xxxx MMVI frrc cccc
+x - reserved bits (always zero)
+MM - cell size, always 01 - 8x5 pixel cells, with 1 pixel spacing
+VI - media type:
+ 11 = inverted LCD with backlight (active pixels are backlight color)
+ 10 = VFD (active pixels glow VFD color)
+ 01 = LCD with backlight (active pixels are dark)
+ 00 = reflective LCD (active pixels are dark)
+
+f - Firmware version, always 0
+rr - text cell line count, lines = rr + 1
+ccccc - text cell column count, columns = ccccc * 4
+
+Common values:
+0x0402 - 1x8 cell, reflective LCD
+0x052A - 2x40 cell, backlit LCD
+0x0534 - 2x80 cell, backlit LCD
+0x0625 - 2x20 cell, VFD
+
+Interrupt commands:
+0x0000 - display control: bits in A register set display options
+  - bit 0 - Display power - 0 off / 1 on
+  - bit 1 - Backlight power - 0 off / 1 on (ignored if not present)
+  - bit 2 - Cursor display - 0 off / 1 on
+  - bit 3 - Cursor blink - 0 steady / 1 blink
+  - bit 4 - Cursor style - 0 block / 1 underscore
+  - other bits ignored by the display
+0x0001 - cursor address: set the cursor address to teh value
+  - in the A register.
+  - line 0 always starts at 0x0000
+  - line 1 always starts at 0x0080
+  - line 2 always starts at 0x0100
+  - line 3 always starts at 0x0180
+  - glyph ram starts at 0x0200
+  - values above 0x03ff are ignored and do not affect the display.
+  - values beyond the right of the visible space will put cursor the
+    offscreen, the next charactor written will not be visible, and will reset
+    the cursor to the beginning of the next line.
+  - when the cursor is set to glyph ram it will count up each write until it
+    reaches the end of glyph ram at 0x0400, at that point it will return to
+    address 0x0000
+0x0002 - reset control: value in A register controls what actions to take:
+  - bit 0 - Clear screen if set
+  - bit 1 - Home cursor to address 0 if set
+0x0003 - write display: value in A register is written as follows:
+  - bits 0-7 - character to display
+     - 0x00 - 0x7f built in font glyphs
+     - 0x80 - 0xff character ram glyphs
+  - bit 8 - if set, don't advance cursor (overwrite)
+  - when the cursor is in glyph ram, writes entire 16 bit value and advances.
+0xffff - restart display, reset all display settings and RAM to zero.
+
+The glyph RAM holds up to 128 custom raster glyphs, each glyph is 4 words.
+Glyphs are rastered by the display horizontally, 8 bits per cell row.
+on the standard 5x8 cell this is:
+word 0, bits 0-4, are row 1, columns 1-5
+word 0, bits 8-12 are row 2, columns 1-5
+word 1, bits 0-4 are row 3, columns 1-5
+word 1, bits 8-12 are row 4, columns 1-5
+word 2, bits 0-4 are row 5, columns 1-5
+word 2, bits 8-12 are row 6, columns 1-5
+word 3, bits 0-4, are row 7, columns 1-5
+word 3, bits 8-12 are row 8, columns 1-5
+
+The cursor, when visible, always appears over the glyph (logical or).
+The standard glyph font represents visible ASCII characters from 0x20-0x7f,
+glyphs from 0x00-0x1f are supplimental graphic characters, the display does
+not follow the concept of ASCII control characters.
+
+Copyright 2015 Meisaka Yukara
+CC BY 4.0
+
