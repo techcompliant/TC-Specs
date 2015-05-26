@@ -5,9 +5,9 @@ Device Type Codes
 ```
  /-------- Hardware class
  |    /--- Hardware sub-class
- |    |
----- ----
-0100 1111 1101 0001
+ |    |                 /--- vendor unique device ID
+---- ----           -------------------
+0100 1111 1101 0001 0111 1110 1001 0001
           ---- ||||
            |   |||\-- can generate interrupts
            |   ||\--- reset with 0xffff interrupt supported
@@ -59,9 +59,8 @@ All devices with the same hardware class and standard API ID can be used in the 
    * 2 - 2D vector
    * 3 - 3D holographic
  * 9 - co-processors/other CPUs/microcontrollers
- * A - propulsion/actuators/craft movement
-   * 0 - Doors
- * B - weapon systems
+ * A - reserved/future use
+ * B - reserved/future use
  * C - generic output only devices
  * D - wireless devices
  * E - wired network/communication
