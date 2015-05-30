@@ -33,16 +33,16 @@ Interrupt commands:
   - bit 3 - Cursor blink - 0 steady / 1 blink
   - bit 4 - Cursor style - 0 block / 1 underscore
   - other bits ignored by the display
-0x0001 - cursor address: set the cursor address to teh value
-  - in the A register.
+0x0001 - cursor address: set the cursor address to teh value in the A
+         register.
   - line 0 always starts at 0x0000
   - line 1 always starts at 0x0080
   - line 2 always starts at 0x0100
   - line 3 always starts at 0x0180
   - glyph ram starts at 0x0200
   - values above 0x03ff are ignored and do not affect the display.
-  - values beyond the right of the visible space will put cursor the
-    offscreen, the next charactor written will not be visible, and will reset
+  - values beyond the right of the visible space will put the cursor
+    offscreen, the next character written will not be visible, and will reset
     the cursor to the beginning of the next line.
   - when the cursor is set to glyph ram it will count up each write until it
     reaches the end of glyph ram at 0x0400, at that point it will return to
@@ -58,7 +58,7 @@ Interrupt commands:
   - when the cursor is in glyph ram, writes entire 16 bit value and advances.
 0xffff - restart display, reset all display settings and RAM to zero.
 
-The glyph RAM holds up to 128 custom raster glyphs, each glyph is 4 words.
+The glyph RAM holds up to 128 custom raster glyphs; each glyph is 4 words.
 Glyphs are rastered by the display horizontally, 8 bits per cell row.
 on the standard 5x8 cell this is:
 word 0, bits 0-4, are row 1, columns 1-5
@@ -72,7 +72,7 @@ word 3, bits 8-12 are row 8, columns 1-5
 
 The cursor, when visible, always appears over the glyph (logical or).
 The standard glyph font represents visible ASCII characters from 0x20-0x7f,
-glyphs from 0x00-0x1f are supplimental graphic characters, the display does
+glyphs from 0x00-0x1f are supplimental graphic characters. The display does
 not follow the concept of ASCII control characters.
 
 Copyright 2015 Meisaka Yukara
