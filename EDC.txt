@@ -33,7 +33,7 @@ Interrupt commands:
   - bit 3 - Cursor blink - 0 steady / 1 blink
   - bit 4 - Cursor style - 0 block / 1 underscore
   - other bits ignored by the display
-0x0001 - cursor address: set the cursor address to teh value in the A
+0x0001 - cursor address: set the cursor address to the value in the A
          register.
   - line 0 always starts at 0x0000
   - line 1 always starts at 0x0080
