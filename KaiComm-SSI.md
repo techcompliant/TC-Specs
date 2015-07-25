@@ -27,6 +27,8 @@ All data are assumed to be sent MSB first.
 Commands
 ----
 
+On interrupt, register A holds a command that the SPI will perform:
+
  - **0x0000**: Query status
    Sets Register A with status, bits will be set/clear as follows:
    - Bit 0 - Line is busy/not-connected (1), or idle (0)
@@ -38,8 +40,8 @@ Commands
    - Bit 14 - Receive interrupts enabled: yes (1), no (0)
    - Bit 15 - Transmit done interrupts enabled: yes(1), no (0)
  - **0x0001**: Configure port
-   Register A holds the octet size minus 1 in bits 0-1, other bits are ignored.
-   Register B holds the baud selection in bits 0-7, giving a range of 0-255.
+   Register B holds the octet size minus 1 in bits 0-1, other bits are ignored.
+   Register C holds the baud selection in bits 0-7, giving a range of 0-255.
    The baud is calculated like so: baud = 3125 * (b+1)
    Possible bauds range from 3125 to 800,000 bits per second, in steps of 3125 bits per second.
  - **0x0002**: Receive data
@@ -52,7 +54,7 @@ Commands
    - 0x0002 - Transmission was not a multiple of 8 bits
    - 0x0003 - No data available
  - **0x0003**: Transmit data
-   Register A contains the lower 16 bits, register B contains the upper 16 bits.
+   Register B contains the lower 16 bits, register C contains the upper 16 bits.
    when configured for less than 4 octets unused bits are ignored.
    Register C is set with error status.
    Transmit Error status codes:
@@ -60,12 +62,12 @@ Commands
    - 0x0001 - Transmit buffer overflow (data will not be sent)
    - 0x0002 - Line is busy or not connected (data will be queued)
  - **0x0004**: Configure interrupts
-   Register A defines which interrupts to enable.
+   Register B defines which interrupts to enable.
    - Bit 0 - Interrupt on Receive enabled: yes (1), no (0)
    - Bit 1 - Interrupt on Transmit done enabled: yes(1), no (0)
    - Bit 2-15 Ignored.
-   Register B contains message for Interrupt on Receive.
-   Register C contains message for Interrupt on Transmit.
+   Register C contains message for Interrupt on Receive.
+   Register X contains message for Interrupt on Transmit.
 
 ----
 
