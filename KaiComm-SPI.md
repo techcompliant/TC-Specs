@@ -65,6 +65,31 @@ On interrupt, register A holds a command that the SPI will perform:
    - Bit 2-15 Ignored.
    Register C contains message for Interrupt on Receive.
    Register X contains message for Interrupt on Transmit.
+ - **0x0005**: Get number of ports
+   Register A is set to number of ports.
+ - **0x0006**: Get port info
+   Register B selects which port number to get information about (0x0000 being the first port, 0x0001 the second etc).
+   Register A is set to the port's ID number.
+   Register B is set to 0x0001 if the port is currently connected, otherwise it is set to 0x0000.
+   Register C is set to the error status:
+   - 0x0000 - No error
+   - 0x0001 - Port number out of bounds - The port number selected is too high for number of connected ports
+ - **0x0007**: Get port name
+   Register B selects which port number to get the name of.
+   Register C passes the memory address to populate.
+   The memory starting at the address held by C is populated with the name of the port, plus a null terminating character (0x0000).
+   Register C is set to the error status:
+   - 0x0000 - No error
+   - 0x0001 - Port number out of bounds - The port number selected is too high for number of connected ports
+   - 0x0002 - Insufficient memory space - The starting address + size of name + 1 exceeds 0xFFFF
+ - **0x0008**: Get active port number
+   Register A is set to the number of the currently active port.
+ - **0x0009**: Set active port
+   Register B selects which port to make the active port.
+   Register C is set to the error status:
+   - 0x0000 - No error
+   - 0x0001 - Port number out of bounds - The port number selected is too high for number of connected ports
+
 
 ----
 
