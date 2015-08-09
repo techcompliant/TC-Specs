@@ -1,4 +1,4 @@
-KaiComm Synchronous Parallel Interface
+KaiComm Hardware Interface Card
 ----
 
 ```
@@ -17,12 +17,14 @@ KaiComm Synchronous Parallel Interface
 | Device Subtype | 0x00       | (Parallel port)
 |      Device ID | 0x10       | (SPI)
 | DCPU Device ID | 0xE0239088 | (KaiComm SPI 2)
-|        Version | 0x0100     |
+|        Version | 0x02xx     | low byte is max ports - 1
 
 The KaiComm SPI is a bi-directional multipurpose data port.
 Transmissions in either direction are independent of each other and can operate asynchronously of one another.
 The size of the data primitive is selectable and can be either 2 or 4 octets.
 The device sends "upper" octets first, if a device set to 2 receives from a device set to 4 the "upper" octets will be received, followed by the "lower" octets.
+
+The low byte of the version specifies the maximum number of ports available on the card.
 
 Commands
 ----
