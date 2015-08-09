@@ -15,11 +15,11 @@ KaiComm Hardware Interface Card
 |    Vendor code | 0xA87C900E | (KaiComm)
 |    Device type | 0x02       | (Communications)
 | Device Subtype | 0x00       | (Parallel port)
-|      Device ID | 0x10       | (SPI)
-| DCPU Device ID | 0xE0239088 | (KaiComm SPI 2)
+|      Device ID | 0x10       | (HIC)
+| DCPU Device ID | 0xE0239088 | (KaiComm HIC 2)
 |        Version | 0x02xx     | low byte is max ports - 1
 
-The KaiComm SPI is a bi-directional multipurpose data port.
+The KaiComm HIC is a bi-directional multipurpose data port.
 Transmissions in either direction are independent of each other and can operate asynchronously of one another.
 The size of the data primitive is selectable and can be either 2 or 4 octets.
 The device sends "upper" octets first, if a device set to 2 receives from a device set to 4 the "upper" octets will be received, followed by the "lower" octets.
@@ -29,7 +29,7 @@ The low byte of the version specifies the maximum number of ports available on t
 Commands
 ----
 
-On interrupt, register A holds a command that the SPI will perform:
+On interrupt, register A holds a command that the HIC will perform:
 
  - **0x0000**: Query status
    Sets Register A with status, bits will be set/clear as follows:
