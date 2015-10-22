@@ -41,6 +41,8 @@ On interrupt, register A holds a command that the HIC will perform:
    - Bit 5-13 Reserved always set to 0
    - Bit 14 - Receive interrupts: enabled (1), disabled (0)
    - Bit 15 - Transmit complete interrupts: enabled (1), disabled (0)
+   Sets Register B to the current active port    
+   Sets Register C to lowest port which has data available (or 0xFFFF if no data is available)  
  - **0x0001**: Configure port:
    Register B selects data size, 16 bit (0) or 32 bit (1), other bits are ignored.
  - **0x0002**: Receive data:
@@ -79,14 +81,12 @@ On interrupt, register A holds a command that the HIC will perform:
  - **0x0007**: Get port name:
    Register B selects which port number to get the name of.
    Register C passes the memory address to populate.
-   The memory starting at the address held by C is populated with the name of the port, plus a null terminating character (0x0000).
+   The memory starting at the address held by C is populated with the name of the port, plus a null terminating character (0x0000). Maximum port name length is 25 characters.  
    Register C is set to the error status:
    - 0x0000 - No error
    - 0x0001 - Port number out of bounds - The port number selected is too high for number of connected ports
    - 0x0002 - Insufficient memory space - The starting address + size of name + 1 exceeds 0xFFFF
- - **0x0008**: Get active port number
-   Register A is set to the number of the currently active port.
- - **0x0009**: Set active port
+ - **0x0008**: Set active port
    Register B selects which port to make the active port.
    Register C is set to the error status:
    - 0x0000 - No error
