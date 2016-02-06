@@ -1,8 +1,8 @@
 
 Embedded Display Controller
 
-vendor: 0x59EA5742 - Meisaka
-device: 0xED73E4FF - EDC
+vendor: 0x59EA5742 - Meisaka Engineering and Integration
+device: 0x70E3E4FF - EDC
 
 version code determines the display size and characteristics
 bit 15 <--- ---- ---- ---> 0
@@ -25,16 +25,22 @@ Common values:
 0x0534 - 2x80 cell, backlit LCD
 0x0625 - 2x20 cell, VFD
 
-Interrupt commands:
-0x0000 - display control: bits in A register set display options
+Commands:
+The display controller may be interfaced directly to a DCPU or connected via
+a serial interface. When connected to a DCPU, register A will hold the command
+index, and register B will hold the parameter value. When connected to a serial
+interface, the first word (or high word of 32 bit message) sent to the EDC acts
+as the command index, and the second word (or 32 bit low word) sent is the
+parameter value (if required).
+
+0x0000 - display control: parameter bits set display options
   - bit 0 - Display power - 0 off / 1 on
   - bit 1 - Backlight power - 0 off / 1 on (ignored if not present)
   - bit 2 - Cursor display - 0 off / 1 on
   - bit 3 - Cursor blink - 0 steady / 1 blink
   - bit 4 - Cursor style - 0 block / 1 underscore
   - other bits ignored by the display
-0x0001 - cursor address: set the cursor address to the value in the A
-         register.
+0x0001 - cursor address: set the cursor address to the parameter value.
   - line 0 always starts at 0x0000
   - line 1 always starts at 0x0080
   - line 2 always starts at 0x0100
@@ -47,15 +53,19 @@ Interrupt commands:
   - when the cursor is set to glyph ram it will count up each write until it
     reaches the end of glyph ram at 0x0400, at that point it will return to
     address 0x0000
-0x0002 - reset control: value in A register controls what actions to take:
+0x0002 - reset control: parameter value controls what actions to take:
   - bit 0 - Clear screen if set
   - bit 1 - Home cursor to address 0 if set
-0x0003 - write display: value in A register is written as follows:
+0x0003 - write display: parameter value is written as follows:
   - bits 0-7 - character to display
      - 0x00 - 0x7f built in font glyphs
      - 0x80 - 0xff character ram glyphs
   - bit 8 - if set, don't advance cursor (overwrite)
   - when the cursor is in glyph ram, writes entire 16 bit value and advances.
+0xfffe - query display
+  - for serial connections: causes the display to transmit 5 words containing
+    vendor code, device ID, and version.
+  - for direct DCPU connections: has the same effect as an HWQ instruction.
 0xffff - restart display, reset all display settings and RAM to zero.
 
 The glyph RAM holds up to 128 custom raster glyphs; each glyph is 4 words.
@@ -75,6 +85,6 @@ The standard glyph font represents visible ASCII characters from 0x20-0x7f,
 glyphs from 0x00-0x1f are supplimental graphic characters. The display does
 not follow the concept of ASCII control characters.
 
-Copyright 2015 Meisaka Yukara
+Copyright 2016 Meisaka Yukara
 CC BY 4.0
 
