@@ -24,14 +24,16 @@ The IACM can be in one of several different modes determining the effects on the
 Interrupt Commands
 ----
 
- - **0x0000**: Set Mode - Change mode to the mode number in A, unsupported modes may cause undefined behaviour.
- - **0x0001**: Set RunTime - Set the amount of time to run while in mode 2. Register A holds the amount of time in 100 millisecond increments. Setting to zero resets to default.
- - **0x0002**: Set SleepTime - Set the amount of time to sleep while in mode 2. Register A holds the amount of time in 100 millisecond increments. Setting to zero resets to default.
- - **0x0003**: Set interrupt message - Sets the message to the value in A for the interrupt type in B.
+when interrupting the device, register A will act as a command index as follows:
+
+ - **0x0000**: Set Mode - Change mode to the mode number in B, unsupported modes may cause undefined behaviour.
+ - **0x0001**: Set RunTime - Set the amount of time to run while in mode 2. Register B holds the amount of time in 100 millisecond increments. Setting to zero resets to default.
+ - **0x0002**: Set SleepTime - Set the amount of time to sleep while in mode 2. Register B holds the amount of time in 100 millisecond increments. Setting to zero resets to default.
+ - **0x0003**: Set interrupt message - Sets the message to the value in B for the interrupt type in C.
    - Type 0: If message is non-zero, generate an interrupt when the "Power" button is pressed.
    - Type 1: If message is non-zero, generate an interrupt when the "Mode" button is pressed.
- - **0x0004**: Get clock rate - gets the normal CPU clock rate in Hz as a 32 bit number, A holds the lower 16 bits, B holds the upper 16 bits.
- - **0x0005**: Get r-clock rate - gets the reduced CPU clock rate Hz as a 32 bit number, A holds the lower 16 bits, B holds the upper 16 bits.
+ - **0x0004**: Get clock rate - gets the normal CPU clock rate in Hz as a 32 bit number, B holds the lower 16 bits, C holds the upper 16 bits.
+ - **0x0005**: Get r-clock rate - gets the reduced CPU clock rate Hz as a 32 bit number, B holds the lower 16 bits, C holds the upper 16 bits.
  - **0x0505**: Force the system to reset everything (including the IACM)
 
 Behaviour Details
