@@ -61,6 +61,29 @@ Interrupt Commands
 Behaviours
 ----
 
+### Version code
+Version code determines the display size and characteristics.
+```
+BIT 15 <--- ---- ---- ---> BIT 0
+       XXXX MMVI FRRC CCCC
+```
+* X: Reserved bits (always 0);
+* MM: Cell size, always 01: 8x5 pixel cells, with 1 pixel spacing;
+* VI: Media type:
+    * 11: Inverted LCD with backlight (active pixels are backlight color);
+    * 10: VFD (active pixels glow VFD color);
+    * 01: LCD with backlight (active pixels are dark);
+    * 00: Reflective LCD (active pixels are dark).
+* F: Firmware version, always 0;
+* RR: Text cell line count, lines = RR + 1;
+* CCCC: Text cell column count, columns = CCCC * 4.
+
+Common values:
+* 0x0402: 1x8 cell, reflective LCD;
+* 0x052A: 2x40 cell, backlit LCD;
+* 0x0534: 2x80 cell, backlit LCD;
+* 0x0625: 2x20 cell, VFD.
+
 ### Glyph RAM
 * The glyph RAM holds up to 128 custom raster glyphs; each glyph is 4 words;
 * Glyphs are rastered by the display horizontally, 8 bits per cell row;
