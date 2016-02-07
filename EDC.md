@@ -54,7 +54,7 @@ Interrupt Commands
 - **0xFFFE**: QUERY_DISPLAY
     - For serial connections: Causes the display to transmit 5 words containing vendor code, device ID and version;
     - For direct DCPU connections: Has the same effect as an HWQ instruction.
-- **0xFFFF**: RESTART-DISPLAY
+- **0xFFFF**: RESTART_DISPLAY
     - Resets all display settings and zeroes RAM.
 
 
