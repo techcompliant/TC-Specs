@@ -20,7 +20,7 @@ KaiComm Radiofrequency Communication Interface
 |        Version | 0x0010     |
 
 The KaiComm RCI is a half-duplex datagram-based radiofrequency communications device.
-Datagrams of up to 256 words can be transmitted, at a rate of 3,125 bits per second.
+Datagrams of up to 256 words can be transmitted, at a rate of 3,125 bits per second. This is approximately 195 words per second; the longest possible datagram takes approximately 1.31 seconds to transmit.
 Datagrams are framed and length-prefixed by the hardware.
 
 **Note** - Radiofrequency communication can be interfered with by physical obstructions, solar flares, and other radio transmissions. Datagrams received may have been truncated, partially replaced, or otherwise corrupted in transit.
