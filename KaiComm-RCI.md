@@ -54,7 +54,7 @@ On interrupt, register A holds a command that the WCI will perform:
    Register C holds the length of the datagram to transmit (up to 256 words).
    Register A will be set to 0 if the datagram is successfully queued for transmission, and 1 if there is already a datagram being transmitted.
  - **0x0003**: Configure radio:
-   Register B holds the channel to tune to, from 0x0000 through 0x0FF.
+   Register B holds the channel to tune to, from 0x0000 through 0x00FF.
    Register C holds the transmit power level to use, from 0x0000 through 0x0007.
    Register A will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
  - **0x0004**: Configure interrupts:

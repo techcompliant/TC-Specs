@@ -22,6 +22,12 @@ KaiComm Remote Activity Control Module
 The KaiComm RACM is a Remote Activity Control Module designed for satellites and other unattended DCPU-based systems. 
 The device monitors the state of the system by means of a configurable watchdog timer. If the DCPU does not periodically reset the timer, or upon wireless recipt of a configurable PIN, the device enters safe mode. While in safe mode, a remote reset command will reboot the attached DCPU system. While in safe mode, upon recipt of a rescue program, the device will reset the DCPU and execute the program at address 0x0000.
 
+**Note** - Radiofrequency communication can be interfered with by physical obstructions, solar flares, and other radio transmissions. Datagrams received may have been truncated, partially replaced, or otherwise corrupted in transit.
+
+The integrated radio covers the band from 902 MHz to 927.6 MHz, which is divided into 256 channels of 100 KHz bandwidth.
+
+The default channel is 0x0000, or 902.0 MHz.
+
 The default safe mode PIN is: 0x1234
 
 The default watchdog timer value is: 0xffff
@@ -38,6 +44,9 @@ On interrupt, register A holds a command that the RACM will perform:
    Register B gives the number of milliseconds until the watchdog timer should trigger and put the device into safe mode. If the device is currently in safe mode, resetting the watchdog timer will leave safe mode.
  - **0x0002**: Configure PIN:
    Register B selects new safe mode PIN.
+ - **0x0003**: Configure radio:
+   Register B holds the channel to tune to, from 0x0000 through 0x00FF.
+   Register A will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
 
 Remote Commands
 ----
