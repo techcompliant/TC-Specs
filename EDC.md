@@ -17,8 +17,10 @@ Embedded small LCD display controller.
 Interrupt Commands
 ----
 
+The display controller may be interfaced directly to a DCPU or connected via a serial interface. When connected to a DCPU, register A will hold the command index, and register B will hold the parameter value. When connected to a serial interface, the first word (or high word of 32 bit message) sent to the EDC acts as the command index, and the second word (or 32 bit low word) sent is the parameter value (if required).
+
 - **0x0000**: DISPLAY_CONTROL
-    - B: Display options depend on each individual bit.
+    - Display options depend on each individual bit of the parameter.
     ```
     ...00000
        |||||
@@ -31,7 +33,7 @@ Interrupt Commands
     Other bits are ignored by the display.
     ```
 - **0x0001**: CURSOR_ADDRESS
-    - Sets the cursor address to B.
+    - Sets the cursor address to the value of the parameter.
         - Line 0 always starts at 0x0000;
         - Line 1 always starts at 0x0080;
         - Line 2 always starts at 0x0100;
@@ -41,11 +43,11 @@ Interrupt Commands
         - Values beyond line length will put the cursor offscreen, the next character written will not be visible, and will reset the cursor to the beggining of the next line;
         - When the cursor is set to glyph RAM, it will count up each write until it reaches the end of glyph RAM at 0x0400, at that point it will return to 0x0000.
 - **0x0002**: RESET_CONTROL
-    - B controls what action to take:
+    - The parameter controls what action to take:
         - Bit 0: Clear screen if set;
         - Bit 1: Home cursor to address 0 if set.
 - **0x0003**: WRITE_DISPLAY
-    - B controls what to display:
+    - The parameter controls what to display:
         - Bits 0-7: Character to display:
             - 0x00-0x7F: built-in font glyphs;
             - 0x80-0xFF: character RAM glyphs.
