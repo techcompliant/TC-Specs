@@ -76,7 +76,7 @@ BIT 15 <--- ---- ---- ---> BIT 0
     * 00: Reflective LCD (active pixels are dark).
 * F: Firmware version, always 0;
 * RR: Text cell line count, lines = RR + 1;
-* CCCC: Text cell column count, columns = CCCC * 4.
+* CCCCC: Text cell column count, columns = CCCCC * 4.
 
 Common values:
 * 0x0402: 1x8 cell, reflective LCD;
