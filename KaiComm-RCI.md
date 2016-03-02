@@ -40,23 +40,33 @@ The RCI cannot transmit and receive simultaneously. If a datagram arrives while 
 Commands
 ----
 
-On interrupt, register A holds a command that the WCI will perform:
+On interrupt, register A holds a command that the RCI will perform:
 
  - **0x0000**: Query Status Datagram:
-   Register A will be set to transmit/receive status: 0 if radio is inactive, 1 if radio is transmitting, and 2 if radio is receiving.
-   Register B will be set to the current channel, from 0x0000 to 0x00FF.
-   Register C will be set to the current transmit power level, from 0x0000 to 0x0007.
+   Register A will be set to the current channel, from 0x0000 to 0x00FF.
+   Register B will be set to the current transmit power level, from 0x0000 to 0x0007.
+   Register C will be set to transmit/receive status:
+    - 0 if radio is inactive, and receive buffer is empty.
+    - 1 if radio is inactive, and receive buffer has a datagram.
+    - 2 if radio is transmitting.
+    - 3 if radio is receiving.
+    - 0xfffe if the RCI device has detected an antenna failure - the radiofrequency antenna may require service.
+    - 0xffff if the RCI device has detected an internal hardware failure - the RCI may require service.
  - **0x0001**: Receive Datagram:
    Register B gives the address of a 256-word buffer which will be populated with the received datagram.
-   Register A will be set to 0 if a datagram was successfully retrieved from the receive buffer, and 1 if no buffered datagram was available.
+   Register B will be set to the length of the datagram placed in the receive buffer, or 0 if no buffered datagram was available.
+   Register C will be set with a status:
+    - 0 if a datagram was successfully retrieved from the receive buffer.
+    - 1 if no buffered datagram was available.
+    - 2 if no buffered datagram was available and last receive attempt was corrupt and discarded.
  - **0x0002**: Send Datagram:
    Register B holds the address of a buffer containing the datagram to send.
    Register C holds the length of the datagram to transmit (up to 256 words).
-   Register A will be set to 0 if the datagram is successfully queued for transmission, and 1 if there is already a datagram being transmitted.
+   Register C will be set to 0 if the datagram is successfully queued for transmission, or set to 1 if there is already a datagram being transmitted.
  - **0x0003**: Configure radio:
    Register B holds the channel to tune to, from 0x0000 through 0x00FF.
    Register C holds the transmit power level to use, from 0x0000 through 0x0007.
-   Register A will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
+   Register C will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
  - **0x0004**: Configure interrupts:
    Register B contains the interrupt message to send when a datagram is received, or 0x0000 to disable receive interrupts.
    Register C contains the interrupt message to send when a datagram transmission completes, or 0x0000 to disable transmit interrupts.

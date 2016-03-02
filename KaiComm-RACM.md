@@ -46,7 +46,7 @@ On interrupt, register A holds a command that the RACM will perform:
    Register B selects new safe mode PIN.
  - **0x0003**: Configure radio:
    Register B holds the channel to tune to, from 0x0000 through 0x00FF.
-   Register A will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
+   Register C will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
 
 Remote Commands
 ----
