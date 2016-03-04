@@ -1,4 +1,4 @@
-Luxlux Photon Indicator
+Luxul Photon Indicator
 ----
 
 ```
