@@ -36,20 +36,22 @@ Commands
  The second and third bits are ignored if power ≠ 2.
  
  
- | 0x     |       0-2          |             0-F                              |             0-F                              |              0-F             |
- | ------ | -------------------- | -------------------------------------------- | --------------------------------------------- | --------------------------- |
- | Holds  |         Power        |            Blink On                          |            Blink Off                          |             Color           |
- |        | 0=off, 1=on, 2=blink | How many decaseconds to stay on during blink | How many decaseconds to stay off during blink | Hex representation of color |
+| Bit Significance | Most Significant     | Second Most Significant                      | Second Least Significant                      | Least Significant                                  |
+|------------------|----------------------|----------------------------------------------|-----------------------------------------------|----------------------------------------------------|
+| Range: 0x        | 0-2                  | 0-F                                          | 0-F                                           | 0-F                                                |
+| Holds            | Power State          | Blink On                                     | Blink Off                                     | Color                                              |
+|                  | 0=off, 1=on, 2=blink | How many decaseconds to stay on during blink | How many decaseconds to stay off during blink | Hex representation of color (Same spec as LEM1802) |
                                       
  - **0x0002**: Set status: Sets color status in the folowing bit format. 
  
  The second and third bits are ignored if power ≠ 2.
  
  
- | 0x     |       0-2          |            0-F                              |            0-F                              |            0-F             |
- | ------ | -------------------- | -------------------------------------------- | --------------------------------------------- | --------------------------- |
- | Holds  |         Power        |            Blink On                          |            Blink Off                          |             Color           |
- |        | 0=off, 1=on, 2=blink | How many decaseconds to stay on during blink | How many decaseconds to stay off during blink | Hex representation of color |
+| Bit Significance | Most Significant     | Second Most Significant                      | Second Least Significant                      | Least Significant                                  |
+|------------------|----------------------|----------------------------------------------|-----------------------------------------------|----------------------------------------------------|
+| Range: 0x        | 0-2                  | 0-F                                          | 0-F                                           | 0-F                                                |
+| Holds            | Power State          | Blink On                                     | Blink Off                                     | Color                                              |
+|                  | 0=off, 1=on, 2=blink | How many decaseconds to stay on during blink | How many decaseconds to stay off during blink | Hex representation of color (Same spec as LEM1802) |
                                       
                                                                             
 A note from luxul
