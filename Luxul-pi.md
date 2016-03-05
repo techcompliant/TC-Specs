@@ -31,20 +31,12 @@ The Lulux Photon Indicator is a small command driven led. It is ideal for physic
 Commands
 ----
  - **0x0000**: Query Device Info: Sends Vendor Code, Device ID, Device Type, and Version over KaiComm-SSI card.
- - **0x0001**: Get status: Sends current color status in the folowing bit format. 
- 
- The second and third bits are ignored if power ≠ 2. If the most significant bit is set higher than 2, the device assumes the off state.
- 
- 
-| Bit Significance | Most Significant     | Second Most Significant                      | Second Least Significant                      | Least Significant                                  |
-|------------------|----------------------|----------------------------------------------|-----------------------------------------------|----------------------------------------------------|
-| Range: 0x        | 0-2                  | 0-F                                          | 0-F                                           | 0-F                                                |
-| Holds            | Power State          | Blink On                                     | Blink Off                                     | Color                                              |
-|                  | 0=off, 1=on, 2=blink | How many decaseconds to stay on during blink | How many decaseconds to stay off during blink | Hex representation of color (Same spec as LEM1802) |
-                                      
- - **0x0002**: Set status: Sets color status in the folowing bit format. 
- 
- The second and third bits are ignored if power ≠ 2. If the most significant bit is set higher than 2, the device assumes the off state.
+ - **0x0001**: Get status: Sends current color status in the standard pi word format. -Shown below-
+ - **0x0002**: Set status: Sets color status in the standard pi word format. -Shown below-
+  
+Standard pi word format
+----
+The second and third bits are ignored if power ≠ 2. If the most significant bit is set higher than 2, the device assumes the off state.
  
  
 | Bit Significance | Most Significant     | Second Most Significant                      | Second Least Significant                      | Least Significant                                  |
