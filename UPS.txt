@@ -1,0 +1,43 @@
+
+   \\ TALON NAVIGATION //
+   "walk among the stars"
+
+
+DCPU-16 Hardware Info:
+    Name: Universal Positioning System (navigator)
+    ID: 0xfce26509
+    Version: 0xb01e
+    Manufacturer: 0x982d3e46 (TALON NAVIGATION SYSTEMS)
+
+Description:
+    UPS can determine it's position using a combination of signals from x-ray 
+    pulsars and local navigation transmitters. PPS can function in all locations 
+    of the Milky Way, but its accuracy will degrade in absence of local
+    positioning signals.
+
+    Talon UPS hardware provides the fastest signal acquisition on market.
+    It can cold start (no time, no position, no ephemeris) in <55 seconds
+    and maintains a steady position update rate of whopping 1 Hz.
+
+Interrupt behavior:
+    When a HWI is received by the PPS, it reads the A register and does one
+    of the following actions:
+    
+    1: GET_LOCAL_COORDINATES
+       Stores the current position data to DCPU-16 registers X, Y and Z.
+       Halts the DCPU-16 for 6 cycles.
+
+       The data is encoded as
+         X (UINT16) x-coordinate (unit 1m)
+         Y (UINT16) y-coordinate (unit 1m)
+         Z (UINT16) z-coordinate (unit 1m)
+
+       Register C is set with the operation status:
+          0x0000       : Success
+          0x0001       : Success, but reduced accuracy
+          0x8000       : No fix
+          0xffff       : Equipment malfunction
+
+================== WARNING WARNING WARNING WARNING ==================
+            CIVILIAN USE OF UPS JAMMING DEVICES IS ILLEGAL!
+================== WARNING WARNING WARNING WARNING ==================
