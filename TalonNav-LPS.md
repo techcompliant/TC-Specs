@@ -2,15 +2,17 @@
 
    \\ TALON NAVIGATION //
    "walk among the stars"
+   
 ```
 
-
 DCPU-16 Hardware Info:
+
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
 |    Vendor code | 0x982d3e46 | TALON NAVIGATION SYSTEMS
 |      Device ID | 0xfce24728 | Local Positioning System (navigator)
 |        Version | 0xc59f     |
+
 
 Description:
     LPS is an entirely local positioning system, using a beacon and receiver
