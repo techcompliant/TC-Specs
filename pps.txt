@@ -11,9 +11,9 @@ DCPU-16 Hardware Info:
 
 Description:
     PPS can determine it's position using radio-wave and x-ray signals 
-    from pulsars. PPS can function in all locations of the Milky Way, but 
+    from pulsars. PPS functions flawlesly throughout the Solar System, but 
     requires a dish antenna of 2m in diameter. Talon is the only provider
-    of PPS systems that can benefit from over 2000 beacon pulsars for 
+    of PPS systems that can utilize over 2000 beacon pulsars for 
     measuring position.
 
     Talon PPS hardware provides the fastest signal acquisition on market.
@@ -24,14 +24,14 @@ Interrupt behavior:
     When a HWI is received by the PPS, it reads the A register and does one
     of the following actions:
 
-    0: RESET_LOCAL_ORIGO
-       Sets current position as the new origo for subsequent 
+    0: RESET_LOCAL_ORIGIN
+       Sets current position as the new origin for subsequent 
        GET_LOCAL_COORDINATES -queries.
     
        Register C is set with the operation status:
           0x0000       : Success
-          0x8000       : No fix
-          0x8001       : Cannot reset with reduced accuracy
+          0x8000       : Failure, no pulsar fix
+          0x8001       : Failure, cannot reset with reduced accuracy
           0xffff       : Equipment malfunction
 
     1: GET_LOCAL_COORDINATES
@@ -54,13 +54,13 @@ Interrupt behavior:
     3: GET_GLOBAL_COORDINATE_Y
     4: GET_GLOBAL_COORDINATE_Z
 
-       Stores the current x/y/z-coordinate (INT32) to DCPU-16 registers 
-         A: 16 bits high
-         B: 16 bits low
+       Stores the current x/y/z-coordinate (unit 1km) to DCPU-16 registers 
+         X: bits 47-32
+         Y: bits 31-16
+         Z: bits 15-0
 
        Register C is set with the operation status:
           0x0000       : Success
           0x0001       : Success, but reduced accuracy
-          0x8000       : No fix
-          0xffff       : Equipment malfunction
-
+          0x8000       : Failure, no pulsar fix
+          0xffff       : Failure, equipment malfunction
