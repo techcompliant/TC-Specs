@@ -20,6 +20,10 @@ Description:
     It can cold start (no time, no position, no ephemeris) in <55 seconds
     and measure new position data every 8-25 seconds.
 
+    Talon provides both global and local coordinate systems. Global
+    coordinates are represented as 64bit integers. Local coordinates are
+    represented as 16bit integers with configurable origin.
+
     Talon PPS functions by storing latest position measurement results in 
     internal memory array. Interrupts GET_LOCAL_COORDINATES and
     STORE_GLOBAL_COORDINATES can be used to access the data. 
@@ -28,39 +32,40 @@ Interrupt behavior:
     When a HWI is received by the PPS, it reads the A register and does one
     of the following actions:
 
-    0: RESET_LOCAL_ORIGIN
-       Sets current position as the new origin for subsequent 
-       GET_LOCAL_COORDINATES -queries.
-    
+    0: CONFIGURE_LOCAL_ORIGIN
+       Reads Global Coordinate Array pointed by register B from ram and uses
+       it as the new origin for local coordinates.
+
+       Halts the DCPU-16 for 12 cycles.
+
        Register C is set with the operation status:
           0x0000       : Success
-          0x8000       : Failure, no pulsar fix
-          0x8001       : Failure, cannot reset with reduced accuracy
           0xffff       : Equipment malfunction
 
     1: GET_LOCAL_COORDINATES
-       Stores the current position data to DCPU-16 registers X, Y and Z.
+       Stores the latest measured position -relative to Local Origin, to 
+       DCPU-16 registers X, Y and Z.
 
-       Coordinates are INT16 two's complement integers
-         X (INT16) x-coordinate (unit 1km)
-         Y (INT16) y-coordinate (unit 1km)
-         Z (INT16) z-coordinate (unit 1km)
+         X: (UINT16) x-coordinate (unit 1km)
+         Y: (UINT16) y-coordinate (unit 1km)
+         Z: (UINT16) z-coordinate (unit 1km)
+
+       Coordinates that are outside the UINT16 range are replaced with 
+       the closest presentable value (0x0000 or 0xffff) and operation status 
+       in register C is set to 0x0002.
 
        Register C is set with the operation status:
           0x0000       : Success
           0x0001       : Success, but reduced accuracy
+          0x0002       : Success, but out of range
           0x8000       : Failure, no pulsar fix
-          0x8002       : Failure, out of range
           0xffff       : Failure, equipment malfunction
 
     2: STORE_GLOBAL_COORDINATES
-       Reads the B register, and writes the current position data to DCPU-16
-       ram from B to B+11. Halts the DCPU-16 for 12 cycles.
+       Register B is used as the target address to write the latest measured 
+       position as Global Coordinate Array to DCPU ram.
 
-       Coordinates are INT64 two's complement integers stored from MSB to LSB
-         [B+0] INT64: x-coordinate (unit 1km)
-         [B+4] INT64: y-coordinate (unit 1km)
-         [B+8] INT64: z-coordinate (unit 1km)
+       Halts the DCPU-16 for 12 cycles.
 
        Register C is set with the operation status:
           0x0000       : Success
@@ -68,8 +73,15 @@ Interrupt behavior:
           0x8000       : Failure, no pulsar fix
           0xffff       : Failure, equipment malfunction
 
-    4: SET_INTERRUPT
+    4: CONFIGURE_INTERRUPTS
        Enables interrupts and sets the message to X if X is anything other 
        than 0, disables interrupts if X is 0. When interrupts are enabled,
        the PPS will trigger an interrupt on the DCPU-16 whenever new position
        data is available in PPS's internal memory.
+
+Global Coordinate Array:
+    word  0 -  3: UINT64 X-Coordinate
+    word  4 -  7: UINT64 Y-Coordinate
+    word  8 - 11: UINT64 Z-Coordinate
+
+    Values are stored from MSB to LSB.
