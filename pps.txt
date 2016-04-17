@@ -11,14 +11,18 @@ DCPU-16 Hardware Info:
 
 Description:
     PPS can determine it's position using radio-wave and x-ray signals 
-    from pulsars. PPS functions flawlesly throughout the Solar System, but 
+    from pulsars. PPS can function anywhere in Milky Way galaxy, but it 
     requires a dish antenna of 2m in diameter. Talon is the only provider
     of PPS systems that can utilize over 2000 beacon pulsars for 
     measuring position.
 
     Talon PPS hardware provides the fastest signal acquisition on market.
     It can cold start (no time, no position, no ephemeris) in <55 seconds
-    and maintains a steady position update rate of whopping 1 Hz.
+    and measure new position data every 8-25 seconds.
+
+    Talon PPS functions by storing latest position measurement results in 
+    internal memory array. Interrupts GET_LOCAL_COORDINATES and
+    STORE_GLOBAL_COORDINATES can be used to access the data. 
 
 Interrupt behavior:
     When a HWI is received by the PPS, it reads the A register and does one
@@ -36,9 +40,8 @@ Interrupt behavior:
 
     1: GET_LOCAL_COORDINATES
        Stores the current position data to DCPU-16 registers X, Y and Z.
-       Halts the DCPU-16 for 6 cycles.
 
-       The data is encoded as
+       Coordinates are INT16 two's complement integers
          X (INT16) x-coordinate (unit 1km)
          Y (INT16) y-coordinate (unit 1km)
          Z (INT16) z-coordinate (unit 1km)
@@ -50,17 +53,23 @@ Interrupt behavior:
           0x8002       : Failure, out of range
           0xffff       : Failure, equipment malfunction
 
-    2: GET_GLOBAL_COORDINATE_X
-    3: GET_GLOBAL_COORDINATE_Y
-    4: GET_GLOBAL_COORDINATE_Z
+    2: STORE_GLOBAL_COORDINATES
+       Reads the B register, and writes the current position data to DCPU-16
+       ram from B to B+11. Halts the DCPU-16 for 12 cycles.
 
-       Stores the current x/y/z-coordinate (unit 1km) to DCPU-16 registers 
-         X: bits 47-32
-         Y: bits 31-16
-         Z: bits 15-0
+       Coordinates are INT64 two's complement integers stored from MSB to LSB
+         [B+0] INT64: x-coordinate (unit 1km)
+         [B+4] INT64: y-coordinate (unit 1km)
+         [B+8] INT64: z-coordinate (unit 1km)
 
        Register C is set with the operation status:
           0x0000       : Success
           0x0001       : Success, but reduced accuracy
           0x8000       : Failure, no pulsar fix
           0xffff       : Failure, equipment malfunction
+
+    4: SET_INTERRUPT
+       Enables interrupts and sets the message to X if X is anything other 
+       than 0, disables interrupts if X is 0. When interrupts are enabled,
+       the PPS will trigger an interrupt on the DCPU-16 whenever new position
+       data is available in PPS's internal memory.
