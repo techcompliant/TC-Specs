@@ -57,7 +57,7 @@ All lift requests are by default processed according to this priority:
  - Lift stops at F2 (2)
  - Lift returns to idle.
 
-#### Override
+#### Override Mode
 
 The LCM can be put in *override* mode, using a key or override command.
 In this mode, the LCM will ignore/cancel all lift calls and requests, the lift
@@ -68,6 +68,22 @@ and the doors may open and close freely.
 *Having the lift travel with the doors open will void the installation*
 *warranty and may cause damage to the lift car, internal/external doors.*
 *Improper operation in override mode may cause injury or death.*
+
+#### External Control Mode
+
+For advanced use cases, the LCM can be put in External control mode. While in
+this mode requests and calls will not be added to FIFOs unless no command is
+received in 30 seconds. If the 30 second timeout is reached the device returns
+to the default operation mode.
+
+#### Modes summary
+
+| Mode     | Description                                                    |
+| -------: | -------------------------------------------------------------- |
+| Default  | Follows Basic Operation semantics                              |
+| External | Sends progess/status messages, if times out returns to Default |
+| Override | Lift motion unrestricted, inputs ignored, unsafe actions allowed |
+| External + Override | Sends/progess status messages, inputs sent messages, but do not trigger timeout. |
 
 Diagnostic Interface
 ----
@@ -91,7 +107,7 @@ queue, doors, and a number of other things.
 | 0x0009 0x00nn | DISPLAY     | Change the current floor status display to *nn* |
 | 0x000A 0x00nn | CALL_CNCL   | Remove all calls/requests for *nn* from FIFOs   |
 | 0x000B 0x000N | CAR_CNTL    | Bits turn devices on/off (see Device control)  |
-| 0x000C        | SET_EXT     | Put the LCM in external control mode, in this mode: requests/calls will not be added to FIFOs unless no command is received in 30 seconds. |
+| 0x000C        | SET_EXT     | Put the LCM in external control mode |
 | 0x000D        | DIAG        | LCM sends 0xADXN - X is status bits (see below), N is devices status |
 | 0x000E        | ECHO        | LCM sends 0xA00E  |
 | 0x000F        | MODE_RESET  | Return to default mode, external mode is disabled, performs **COVERRIDE** if override mode was active | 
