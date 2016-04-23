@@ -13,9 +13,6 @@ KaiComm Radiofrequency Communication Interface
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
 |    Vendor code | 0xA87C900E | (KaiComm)
-|    Device type | 0x02       | (Communications)
-| Device Subtype | 0x04       | (Wireless Datagram)
-|      Device ID | 0x20       | (SSI)
 | DCPU Device ID | 0xD00590A5 | (KaiComm RCI)
 |        Version | 0x0010     |
 
@@ -43,15 +40,21 @@ Commands
 On interrupt, register A holds a command that the RCI will perform:
 
  - **0x0000**: Query Status Datagram:
-   Register A will be set to the current channel, from 0x0000 to 0x00FF.
-   Register B will be set to the current transmit power level, from 0x0000 to 0x0007.
-   Register C will be set to transmit/receive status:
-    - 0 if radio is inactive, and receive buffer is empty.
-    - 1 if radio is inactive, and receive buffer has a datagram.
-    - 2 if radio is transmitting.
-    - 3 if radio is receiving.
-    - 0xfffe if the RCI device has detected an antenna failure - the radiofrequency antenna may require service.
-    - 0xffff if the RCI device has detected an internal hardware failure - the RCI may require service.
+   - Register A will be set to the current channel, from 0x0000 to 0x00FF.
+   - Register B will be set to the current transmit power level, from 0x0000 to 0x0007.
+   - Register C will be set to transmit/receive status
+     The lower 3 bits of status are interdependant as follows:
+     - XX0 receive buffer is empty.
+     - XX1 receive buffer has a datagram.
+     - 00X radio is idle.
+     - 01X radio detected a receive carrier or is receiving.
+     - 10X radio is transmitting.
+     - 11X radio detected a receive carrier collision.
+
+     - The RCI device can also return these error codes in C instead:
+     - 0xffe0 if the RCI device has detected an antenna failure - the radiofrequency antenna may require service.
+     - 0xfff0 if the RCI device has detected an internal hardware failure - the RCI may require service.
+
  - **0x0001**: Receive Datagram:
    Register B gives the address of a 256-word buffer which will be populated with the received datagram.
    Register B will be set to the length of the datagram placed in the receive buffer, or 0 if no buffered datagram was available.
@@ -59,14 +62,17 @@ On interrupt, register A holds a command that the RCI will perform:
     - 0 if a datagram was successfully retrieved from the receive buffer.
     - 1 if no buffered datagram was available.
     - 2 if no buffered datagram was available and last receive attempt was corrupt and discarded.
+
  - **0x0002**: Send Datagram:
    Register B holds the address of a buffer containing the datagram to send.
    Register C holds the length of the datagram to transmit (up to 256 words).
    Register C will be set to 0 if the datagram is successfully queued for transmission, or set to 1 if there is already a datagram being transmitted.
+
  - **0x0003**: Configure radio:
    Register B holds the channel to tune to, from 0x0000 through 0x00FF.
    Register C holds the transmit power level to use, from 0x0000 through 0x0007.
    Register C will be set to 0 if the settings are accepted an applied, and 1 if the proposed settings are invalid.
+
  - **0x0004**: Configure interrupts:
    Register B contains the interrupt message to send when a datagram is received, or 0x0000 to disable receive interrupts.
    Register C contains the interrupt message to send when a datagram transmission completes, or 0x0000 to disable transmit interrupts.
