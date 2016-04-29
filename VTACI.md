@@ -66,10 +66,10 @@ DCPU HWI Interrupts VTACI and makes use of register A in DCPU to select action:
    - N+0 - X vector in mm from center of mass or VTACI.
    - N+1 - Y vector in mm from center of mass or VTACI.
    - N+2 - Z vector in mm from center of mass or VTACI.
-   - N+3 - Hex number of direction, 0xWZYX, 0 = -1, 8 = 0, F = +1
+   - N+3 - Hex number of direction, 0xWZYX, 0 = -1, 8 = 0, F = +1;
      W = 0: from center of mass, W = 1: from center of VTACI.
-   - N+4 - Hex number of thrust rated, 0xETTT, Thrust = TTT x 10 ^ ( -6 + E )
-     Thrust is newtons.
+   - N+4 - Hex number of thrust rated, 0xETTT, Thrust = (TTT x 10 ^ ( -6 + E ))
+     newtons.
 
    DCPU register A will get set to number of thrust information.
    Memory use is A x 5.
@@ -91,6 +91,7 @@ DCPU HWI Interrupts VTACI and makes use of register A in DCPU to select action:
    Each thruster will use 1 word at offset + base for control.
 
    Largest offset number is amount of memory read for control.
+
    **IMPORTANT** *Larger max offset number reduce response time.*
 
  - **0x0007**: Set Gimble Groups
@@ -100,11 +101,23 @@ DCPU HWI Interrupts VTACI and makes use of register A in DCPU to select action:
    Each gimble will use 2 words at offset + base for control.
 
    Largest offset number + 1 is amount of memory read for control.
+
    **IMPORTANT** *Larger max offset number reduce response time.*
 
- - **0xfffe**: Query
+ - **0x0008**: Thrusters Status
 
-   Does like HWQ on VTACI.
+   write information at memory at address from DCPU register B.
+   1 memory word are need for each thruster, the status of thruster.
+
+    - 0 - Thruster off and OK.
+    - 1 - Thruster firing and OK.
+    - 0x100 - Thruster not respond to VTACI command.
+    - 0x101 - Thruster overheat.
+    - 0x102 - Thruster on malfunction gimble.
+
+   **IMPORTANT** *Use of 10+N DCPU cycle for interrupt, N=number thrusters*
+
+   Will set DCPU register A equal number of error thrusters.
 
  - **0xffff**: Reset
 
@@ -114,7 +127,7 @@ DCPU HWI Interrupts VTACI and makes use of register A in DCPU to select action:
 Behaviours
 ----
 
-VTACI has 3 mode of operation:
+VTACI have 3 mode of operation:
  - Disable mode - thrusters off
  - Group Control - memory control of individual thruster or group of thruster
  - Moment+Force Mode - memory control of automatic group of thruster
