@@ -15,43 +15,53 @@ DCPU-16 Hardware Info:
 
 
 Description:
-    LPS is an entirely local positioning system, using a beacon and receiver
-    setup. This device will lock onto the nearest beacon with a specified ID,
-    using a doppler reciever to triangulate both position and velocity relative
-    to the beacon.
+    The Talon Navigation Systems LPS is an entirely local positioning system, using 
+    a beacon and receiver model. This device uses a doppler receiver to triangulate
+    position and velocity relative a specified beacon.
 
-    The Talon LPS has a massive range of 16km, and is accurate to the nearest mm.
+    The Talon has a range of 16km, and is accurate to 1 mm.
     Guaranteed to lock on in under 5 seconds or your money back!
+
 (Note: Guarantee applies only in free space with fully functioning Talon Navigation
-Systems LPS Beacon within 16km of receiver, presence of multiple beacons with same ID
+Systems LPS Beacon within 16km of receiver. Presence of multiple beacons with same ID
 may lead to undefined behaivour and voids warranty.)
 
 Interrupt behavior:
-    When a HWI is received by the LPS, it reads the A register and does one
+    When a HWI is received by the Talon, it reads the A register and does one
     of the following actions:
 
-    0: SET_TARGET_ID
-       Sets the target beacon ID to the value of the B register.
+    0: Sets the target beacon ID to the value of the B register.
 
-    1: GET_LOCAL_COORDINATES
-       Stores the current position data to DCPU-16 registers X and Y.
+    1: Stores the current position data to memory begining at B.
+    
+      Data is stored in big endian. B must point to at least 12 words
+      of memory. If B+12 is greater or equal to the maximum memory 
+      point addressable by the connected CPU, this query will
+      silently fail.
 
-       Depending on the value of the B register, stores a value in X and Y,
-       encoded as an INT32 with least significant part in X.
+      Data is stored in the same layout as this B structure.
+      
+      struct SpaceCoordinate
+      {
+         x_high;
+         x_low;
+         y_high;
+         y_low;
+         z_high;
+         z_low;
+         x_velocity_high;
+         x_velocity_low;
+         y_velocity_high;
+         y_velocity_low;
+         z_velocity_high;
+         z_velocity_low;
+      }
+      
+      All position and velocity information is in the beacon's frame of reference.
 
-       B value: Value returned
-         0: Relative x-coordinate position in mm
-         1: Relative y-coordinate position in mm
-         2: Relative z-coordinate position in mm
-
-         3: Relative x-coordinate velocity in mm/s
-         4: Relative y-coordinate velocity in mm/s
-         5: Relative z-coordinate velocity in mm/s
-
-
-       Register C is set with the operation status:
-          0x0000       : Success
-          0x0001       : Success, but reduced accuracy
-          0x8000       : No fix
-          0xffff       : Equipment malfunction
+      Register C is set with the operation status:
+         0x0000       : Success
+         0x0001       : Success, but reduced accuracy
+         0x8000       : No fix
+         0xffff       : Equipment malfunction
 
