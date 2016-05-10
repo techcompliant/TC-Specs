@@ -1,0 +1,98 @@
+
+ O  TTT EEE  C
+O O  T  E   C C
+O O  T  E   C
+O O  T  EE  C
+O O  T  E   C
+O O  T  E   C C
+ O   T  EEE  C   - LEAVE FAR FIELD TO US!
+
+DCPU-16 Hardware Info:
+    Name: FF32-EM Radar
+    Version: 0x6673
+    ID: 0x3846bc64
+    Manufacturer: 0xb8badde8 (Otec)
+
+Description:
+    FF32-EM Radar is a far field electromagnetic pulse generator-detector. FF32-EM 
+    system can detect the presence, distance and signature of spacecraft, ships, and 
+    other objects, by sending out pulses of high-frequency electromagnetic waves 
+    that are reflected off the object back to the source.
+
+    Otec's FF32-EM can operate at 32km range and is capable of spherical radar 
+    sweep in only 7200ms. FF32-EM holds internal target listed that is refreshed
+    during radar sweep and can be queried with Otec's advanced interrupt API specified
+    below.
+
+Interrupt behavior:
+
+    When a HWI is received by the Radar, it reads the A register and 
+    does one of the following actions:
+    
+    0: GET_STATUS
+        Register B is set to hold the number of targets left in FF32-EM internal 
+        memory. This target list is repopulated every time that radar sweep completes
+        and target is removed from the list when POP_TARGET returns it.
+
+        Register C is set FF32-EM general status
+          0x0000 Idle
+          0x0001 Sweep in progress
+          0xffff Equipment malfunction
+
+    1: START_RADAR_SWEEP
+        Starts the radar sweep. Sweep will take exactly 7200ms to complete. At sweep startup
+        the internal target list is cleared and new list is build during the sweep.
+
+        Register C is set to return status code for START_RADAR_SWEEP operation.
+          0x0000 Sweep initiated succesfully
+          0x8000 Sweep already in progress
+          0xffff Equipment malfunction
+
+    2: POP_TARGET
+        Pop target provides information about a target detected during previous radar sweep.
+        Targets are returned in the distance order - closest first.
+
+        GET_STATUS returns (in register B) how many times POP_TARGET can be called before all
+        detected targets are processed.
+
+        Information
+          A: Target signature
+             16 bit signature that is typically unique to a target, but uniqueness is not quaranteed 
+          B: Target data vector 00000000 00wwwwtt
+             bits tt: Target type
+                 00: Radar echo is untypical
+                 10: Radar echo is typical for manmade object
+                 01: Radar echo is typical for natural object
+                 11: NA
+             bit wwww: Target mass
+                 0000:         0  kg - 10e2  kg
+                 0001:      10e2  kg - 10e3  kg
+                 0010:      10e3  kg - 10e4  kg
+                 0011:      10e4  kg - 10e5  kg
+                 0100:      10e5  kg - 10e6  kg
+                 0101:      10e6  kg - 10e7  kg
+                 0110:      10e7  kg - 10e8  kg
+                 0111:      10e8  kg - 10e9  kg
+                 1000:      10e9  kg - 10e10 kg
+                 1001:      10e10 kg - 10e11 kg
+                 1010:      10e11 kg - 10e15 kg
+                 1011:      10e15 kg - 10e20 kg
+                 1100:      10e20 kg - 10e25 kg
+                 1101:      10e25 kg - 10e35 kg
+                 1110:      10e35 kg - 10e40 kg
+                 1111:      10e40 kg - 
+
+          X: Target X-coordinate relative to radar (m)
+          Y: target Y-coordinate relative to radar (m)
+          Z: target Z-coordinate relative to radar (m)
+
+          Register C is set to status code for POP_TARGET operation.
+            0x0000 Success
+            0x0001 No target available
+            0x8000 Sweep in progress
+            0xffff Equipment malfunction
+
+          Halts DCPU for 6 cycles.
+
+    3: CONFIGURE_INTERRUPTS
+        Register B contains message for Interrupt on sweep completed, 0 means disable interrupt.

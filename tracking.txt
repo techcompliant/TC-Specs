@@ -1,0 +1,85 @@
+
+ O  TTT EEE  C
+O O  T  E   C C
+O O  T  E   C
+O O  T  EE  C
+O O  T  E   C
+O O  T  E   C C
+ O   T  EEE  C   - LEAVE FAR FIELD TO US!
+
+DCPU-16 Hardware Info:
+    Name: Tracking Theodolite TT-Z80
+    Version: 0x6673
+    ID: 0x3846bc64
+    Manufacturer: 0xb8badde8 (Otec)
+
+Description:
+    Otec's premium Tracking Theodolite model TT-Z80 can accurately track a specified 
+    target with a modern interferometric techniques and light tracking motors. Advanced 
+    signal processing ensures data accuracy and reliability.
+
+    Otec's Tracking Theodolite can operate at 20km range and is capable of tracking a
+    single target with high accuracy and refresh rate. Refresh rate is close to 5HZ
+    and refresh can be used to trigger an interrupt.
+
+    NOTE: Tracking can be detected with Otec's tracking sensor array - sold separately.
+
+Interrupt behavior:
+
+    When a HWI is received by the Theodolite, it reads the A register and does one of 
+    the following actions:
+    
+    0: GET_STATUS
+        Register B is set to hold tracking target's signal ID or 0 if no tracking in
+        progress.
+
+        Register C is set to TT-Z80 status
+          0x0000 Idle
+          0x0001 Tracking
+          0x0002 Target lost
+          0xffff Equipment malfunction
+
+    1: SET_TARGET
+        Register B contains the target's signal ID (available e.g. from radar data).
+        TT-Z80 will acquire target lock in less than 2 seconds and start providing tracking 
+        data.
+
+        Signal ID 0 will stop tracking.
+
+        Register C is set to status code for operation:
+          0x0000 Tracking starting
+          0x8000 Failure, unknown target
+          0xffff Failure, equipment malfunction
+
+    2: GET_TARGET_POSITION
+          B: is set to contain a timestamp for the position data. Timestamp is 16 bit counter 
+          that increments every data refresh cycle and resets to zero at every 2^16 seconds.
+
+          X: Target X-coordinate relative to theodolite (m)
+          Y: target Y-coordinate relative to theodolite (m)
+          Z: target Z-coordinate relative to theodolite (m)
+
+          Register C is set to status code for operation:
+            0x0000 Success
+            0x8001 No target
+            0xffff Equipment malfunction
+
+          Halts DCPU for 3 cycles.
+
+    3: GET_TARGET_VELOCITY
+          B: is set to contain a timestamp for the velocity data. Timestamp is 16 bit counter 
+          that increments every data refresh cycle and resets to zero at every 2^16 seconds.
+
+          X: Target velocity along X-axis relative to theodolite (m/s)
+          Y: Target velocity along Y-axis relative to theodolite (m/s)
+          Z: Target velocity along Z-axis relative to theodolite (m/s)
+
+          Register C is set to status code for operation:
+            0x0000 Success
+            0x8001 No target
+            0xffff Equipment malfunction
+
+          Halts DCPU for 3 cycles.
+
+    4: CONFIGURE_INTERRUPTS
+        Register B contains message for Interrupt on target data refreshed, 0 means disable interrupt.
