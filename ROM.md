@@ -7,9 +7,9 @@ ROM
 
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
-|    Vendor code | 0x0000     | TBD
-|      Device ID | 0x0000     | TBD
-|    Device type | 0x0000     | (TDB)
+|    Vendor code |            | (Various)
+|      Device ID | 0x48F0EFFD | 
+|    Device type | 0x48F0     | Mass storage; 16-bit solid memory
 |        Version | 1          | dicates size
 
 Device Description
