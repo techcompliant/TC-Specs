@@ -39,6 +39,7 @@ All devices with the same hardware class and standard API ID can be used in the 
    * 0-7 32+ bit addressable
    * 8-F 16 bit addressable
    * 4 - 32 bit, fixed disk drives
+   * 8 - 16 bit, solid memory
    * A - 16 bit, fixed disk drives
    * F - 16 bit, floppy drives
  * 5 - memory controllers
