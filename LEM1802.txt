@@ -12,7 +12,8 @@ NE_LEM1802
 
 DCPU-16 Hardware Info:
     Name: LEM1802 - Low Energy Monitor
-    ID: 0x7349f615, version: 0x1802
+    ID: 0x7349f615 (Older models), version: 0x1802
+    ID: 0x734df615 (Newer models), version: 0x1802
     Manufacturer: 0x1c6c8b36 (NYA_ELEKTRISKA)
 
 

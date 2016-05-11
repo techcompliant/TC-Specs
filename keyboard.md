@@ -8,8 +8,8 @@ Generic Keyboard
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
 |    Vendor code | 0x1c6c8b36 | NYA Elektriska
-|      Device ID | 0x30cf7406 | Generic Keyboard
-|    Device type | 0x0000     | (TBD)
+|  Compatible ID | 0x30cf7406 | Generic Keyboard (older models)
+| Device type ID | 0x30c17406 | Generic ASCII Keyboard
 |        Version | 1          | Fixed Version
 
 A generic input keyboard.
@@ -44,3 +44,6 @@ Key numbers are:
 -	0x83: Arrow right
 -	0x90: Shift
 -	0x91: Control
+
+- ASCII letters are uppercase when either shift or control are held down.
+

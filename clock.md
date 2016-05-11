@@ -1,15 +1,11 @@
 Generic Clock
 ----
 
-```
---------
-```
-
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
 |    Vendor code | 0x1c6c8b36 | NYA Elektriska
-|      Device ID | 0x12d0b402 | Generic Clock
-|    Device type | 0x0000     | (TDB)
+|  Compatible ID | 0x12d0b402 | Generic Clock (Older models)
+| Device type ID | 0x12d1b402 | Generic Timer
 |        Version | 1          | Fixed Version
 
 Device Description
@@ -29,4 +25,5 @@ Interrupt Commands
 
 Behaviours
 ----
-When interrupts are enabled, the clock will trigger an interrupt on each tick 
+When interrupts are enabled, the clock will trigger an interrupt on each tick
+

@@ -29,9 +29,11 @@ All devices with the same hardware class and standard API ID can be used in the 
 
  * 0 - expansion buses
  * 1 - integrated devices
+   * 1 - CPU or interrupt controllers
    * 2 - timers
    * 3 - RNG
    * 4 - real time clocks
+   * 7 - ROMs and EEPROMs
  * 2 - sensors (input only devices)
  * 3 - human interfacing specific devices
    * 0 - keyboards
@@ -63,8 +65,10 @@ All devices with the same hardware class and standard API ID can be used in the 
  * B - reserved/future use
  * C - generic output only devices
  * D - wireless devices
+   * 0 - Packet radio transceivers
  * E - wired network/communication
    * 0 - parallel port
    * 1 - serial port
  * F - non-standard devices
+   * 7 - thrust controllers
 
