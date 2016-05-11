@@ -29,9 +29,10 @@ All devices with the same hardware class and standard API ID can be used in the 
 
  * 0 - expansion buses
  * 1 - integrated devices
+   * 1 - on-board memory
    * 2 - timers
    * 3 - RNG
-   * 4 - real time clocks
+   * 4 - real time clocks 
  * 2 - sensors (input only devices)
  * 3 - human interfacing specific devices
    * 0 - keyboards
