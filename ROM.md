@@ -7,10 +7,10 @@ ROM
 
 |     Item       |   Value    |   Comment
 | -------------: | ---------- | ----------------
-|    Vendor code | 0x0000     | TBD
-|      Device ID | 0x0000     | TBD
-|    Device type | 0x0000     | (TDB)
-|        Version | 1          | dicates size
+|    Vendor code |            | (Various)
+|      Device ID | 0x11F0     | 
+|    Device type | 0x11F0     | Integrated memory
+|        Version | 1          | dictates size
 
 Device Description
 ----
