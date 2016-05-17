@@ -18,10 +18,10 @@ Interrupt Commands
 ----
 
 - **0x0000**: SET_FREQUENCY_CHANNEL_1
-    Set frequency of first channel to value read from register B in Hz.
+    - Set frequency of first channel to value read from register B in Hz.
 
 - **0x0000**: SET_FREQUENCY_CHANNEL_2
-    Set frequency of first channel to value read from register B in Hz.
+    - Set frequency of first channel to value read from register B in Hz.
 
 Behaviours
 ----
