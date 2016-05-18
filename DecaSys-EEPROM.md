@@ -17,11 +17,11 @@ Due to constraints in trying to build this capability into such a small package,
 Interrupt Commands
 ----
 All interrupt commands are done with A set to 0xFFF0, sent to the same device as the EEPROM is attached to.  Register B is used to select the command, and X and Y are used for address and data.
-
- - **0x0001**: READ
-    - Reads word from address X and stores it in register Y.
- - **0x0002**: WRITE
-    - Writes word from register Y to address X.  Note that writing to the EEPROM can only clear bits, not set them, so you may need to clear the EEPROM to write new values.
- - **0x0003**: RESET
-    - Resets all words to 0xFFFF
+ - A - **0xFFF0**:
+   - B - **0x0001**: READ
+     - Reads word from address X and stores it in register Y.
+   - B - **0x0002**: WRITE
+     - Writes word from register Y to address X.  Note that writing to the EEPROM can only clear bits, not set them, so you may need to clear the EEPROM to write new values.
+   - B - **0x0003**: RESET
+     - Resets all words to 0xFFFF
       
