@@ -20,8 +20,11 @@ All interrupt commands are done with A set to 0xFFF0, sent to the same device as
  - A - **0xFFF0**:
    - B - **0x0001**: READ
      - Reads word from address X and stores it in register Y.
+     - Takes 1ms to read a word
    - B - **0x0002**: WRITE
      - Writes word from register Y to address X.  Note that writing to the EEPROM can only clear bits, not set them, so you may need to clear the EEPROM to write new values.
+     - Takes 5ms to write a word
    - B - **0x0003**: RESET
      - Resets all words to 0xFFFF
+     - Takes 10ms to reset
       
