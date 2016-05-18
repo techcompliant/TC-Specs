@@ -31,7 +31,7 @@ Currently used IDs
   * `0xF7F7EE03` - ver `0x0400` - [Vectored Thruster Array Control Interface](VTACI.md)
 
 * `0x5672746B` - Vartok hardware
-  * `0x02060001` - ver `0x0001` - [Speaker Hardware](speaker.md)
+  * `0xC0F00001` - ver `0x0001` - [Speaker Hardware](speaker.md)
 
 * Various Vendors
   * `0x11E0DACC` - ver `0x0004` - [Integrated Activity Control Module](cpu-control.md)
