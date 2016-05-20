@@ -37,6 +37,7 @@ All devices with the same hardware class and standard API ID can be used in the 
  * 2 - sensors (input only devices)
  * 3 - human interfacing specific devices
    * 0 - keyboards
+   * 1 - Game Controllers
  * 4 - mass storage
    * 0-7 32+ bit addressable
    * 8-F 16 bit addressable

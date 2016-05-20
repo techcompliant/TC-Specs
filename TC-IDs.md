@@ -33,6 +33,9 @@ Currently used IDs
 * `0x5672746B` - Vartok hardware
   * `0xC0F00001` - ver `0x0001` - [Speaker Hardware](speaker.md)
 
+* `0x621CAF3A` - VeXXaN Performance Peripherals
+  * `0x31E1DACA` - ver `0x0001` - [Digital/Analog Control Adapter](daca.md)
+
 * Various Vendors
   * `0x11E0DACC` - ver `0x0004` - [Integrated Activity Control Module](cpu-control.md)
   * `0x17400011` - ver `~     ` - [Flashable ROM](ROM.md)
