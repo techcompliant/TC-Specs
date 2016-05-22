@@ -20,11 +20,12 @@ VeXXaN Digital/Analog Control Adapter
 
 Device Description
 
-VeXXaN Performance Peripherals(tm) is proud to announce the only control adapter you will ever need!  With the ability to connect up to 4(!) 8-bit joysticks and 16 buttons using a standard DB25 connection, the days of direct attached game controllers ARE! IN! THE! PAST!  I personally guarantee that you will find more uses for this adapter than you ever thought possible! Remote control vehicles? Done! Arcade Machines? Sure! Spacecraft controls? You Betcha!*  Order within the next 5 Minutes and we'll throw in our patented No-Slip rubberized joystick base and a full set of our low-travel digital buttons! (just pay seperate processing and handling)** And, Best of all, If you're not 100,000% satisfied with your brand new DACA, simply return it for a full refund.***
+VeXXaN Performance Peripherals(tm) is proud to announce the only control adapter you will ever need!  With the ability to connect up to 4(!) 8-bit joysticks* and 16 buttons using a standard DB25 connection, the days of direct attached game controllers ARE! IN! THE! PAST!  I personally guarantee that you will find more uses for this adapter than you ever thought possible! Remote control vehicles? Done! Arcade Machines? Sure! Spacecraft controls? You Betcha!**  Order within the next 5 Minutes and we'll throw in our patented No-Slip rubberized joystick base and a full set of our low-travel digital buttons! (just pay seperate processing and handling)*** And, Best of all, If you're not 100,000% satisfied with your brand new DACA, simply return it for a full refund.****
 
-\*VeXXaN Performance Peripherals(tm) does in no way certify our Digital/Analog Control Adapter for use in spacecraft control.  VeXXaN Performance Peripherals(tm) will not be held liable for such uses.
-\*\*Offer not available in the greater megallenic cloud.
-\*\*\*Just pay return processing and handling.
+\*The DACA supports 4 single axis joysticks, 2 2-axis joysticks, or 1 3-axis joystick and 1 single axis joystick.
+\*\*VeXXaN Performance Peripherals(tm) does in no way certify our Digital/Analog Control Adapter for use in spacecraft control.  VeXXaN Performance Peripherals(tm) will not be held liable for such uses.
+\*\*\*Offer not available in the greater megallenic cloud.
+\*\*\*\*Just pay return processing and handling.
 
 
 Interrupt Commands
