@@ -36,10 +36,10 @@ Manufacturer: 0x1eb37e91 (MACKAPAR)
 ----! DESCRIPTION !-------------------------------------------------------------
     '-------------'
 
-The Mackapar 3.5" Floppy Drive is compatible with all standard 3.5" 1440 KB
-floppy disks. The floppies need to be formatted in 16 bit mode, for a total of
-737,280 words of storage. Data is saved on 80 tracks with 18 sectors per track,
-for a total of 1440 sectors containing 512 words each.
+The Mackapar 3.5" Floppy Drive is compatible with all standard 3.5" floppy disks
+. The floppies need to be formatted in 16 bit mode, for a total of 737,280 words
+of storage. Max floppy size is 1440KB, saved on 80 tracks with 18 sectors per 
+track, for a total of 1440 sectors containing 512 words each.
 The M35FD works is asynchronous, and has a raw read/write speed of 30.7kw/s.
 Track seeking time is about 2.4 ms per track.
 
@@ -72,6 +72,11 @@ A: Behavior:
    fails. Writing is only possible if the state is STATE_READY.
    Protects against partial writes.
 
+4  Get Floppy geometry. Sets B and C with the actual floppy geometry. If  there 
+   isn't a floppy inserted, would be set to 0. B is set to the number of 
+   tracks and C to the number of sectors per track.
+   The total number of sectors would be B * C. The typical floppy disk would
+   set B to 80 and C to 18. 
 
     .-------------.
 ----! STATE CODES !-------------------------------------------------------------
@@ -96,6 +101,17 @@ A: Behavior:
 0x0005 ERROR_BAD_SECTOR The requested sector is broken, the data on it is lost.
 0xffff ERROR_BROKEN     There's been some major software or hardware problem,
                         try turning off and turning on the device again.
+
+
+    .-------------------------.
+----! USUAL FLOPPY GEOMETRIES !--------------------------------------------------
+    '-------------------------'
+
+Sectors Per Track   Tracks    Capacity
+       18             80        1440KB
+        9             80         720KB
+        9             40         360KB
+        8             20         160KB
 
 
 
