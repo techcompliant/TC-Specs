@@ -11,7 +11,7 @@ EEPROM
 ```
 Device Description
 ----
-The DecaSys EEPROM can be built into various devices to store supplementary data.  Holds 8 words, that can only be read or written a single word at a time.
+The DecaSys EEPROM can be built into various devices to store supplementary data.  Holds 16 words, that can only be read or written a single word at a time.
 Due to constraints in trying to build this capability into such a small package, bits in a single word can only be CLEARED.  In order to SET a bit, you have to reset the entire device to all 1's, and then set individual words to their new values.
 
 Interrupt Commands
