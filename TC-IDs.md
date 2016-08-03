@@ -12,6 +12,7 @@ Currently used IDs
 
 * `0x59EA5742` - Meisaka Engineering and Integration
   * `0x70E3E4FF` - ver `~     ` - [Embedded Display Controller](EDC.md)
+  * `0x75F6A113` - ver `0x0538` - [IMVA](IMVA.md)
 
 * `0x982D3E46` - Talon Navigation Systems
   * `0xFCE24728` - ver `0xC59F` - [Local Positioning System](TalonNav-LPS.md)
