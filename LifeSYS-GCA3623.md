@@ -21,7 +21,7 @@ Device Description
 ----
 The LifeSys GCA3623 and GCA1823 are fully automated Gas Chromotography Analyzers, capable of analyzing any gas piped into them.
 The GCAs use only a very minute amount of gas, and are capable of determining the exact nature of the gases, as well as their concentrations.
-The GCA must be told to start an analysis operation, and thereafter takes approximately 10~20 seconds (15~30 seconds for the GCA1823) to fully analyze the gasses, depending on the number of gasses to analyze.
+The GCA must be told to start an analysis operation, and thereafter takes approximately 10~20 seconds (15~30 seconds for the GCA1823) to fully analyze the gasses, depending on the number of gasses to analyze.  In addition, the GCA will need 10 seconds to flush and recover from the analysis.
 
 Control
 ----
@@ -39,6 +39,7 @@ Commands
       - 0xFFFF: Device malfunctioning.
   - **0x0001**: START ANALYSIS
     - Commands the device to begin an analysis.  Analysis time varies depending on multiple factors.
+    - Once analysis has begun, prior results are no longer accessible.
   - **0x0002**: GET GAS
     - This command uses the second paramter to specify which gas index to get information on.  This parameter must be between 0 and the number of gasses minus 1.
     - Returns 2 words, the first being an identifier for the specific gas, and the second being it's relative concentration, between 1 and 65535.  All of the gasses in the gas index will add up to a total concentration of 65535.
