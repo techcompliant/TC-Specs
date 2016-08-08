@@ -12,6 +12,7 @@ Currently used IDs
 
 * `0x59EA5742` - Meisaka Engineering and Integration
   * `0x70E3E4FF` - ver `~     ` - [Embedded Display Controller](EDC.md)
+  * `0x75F6A113` - ver `0x0538` - [IMVA](IMVA.md)
 
 * `0x982D3E46` - Talon Navigation Systems
   * `0xFCE24728` - ver `0xC59F` - [Local Positioning System](TalonNav-LPS.md)
@@ -30,6 +31,9 @@ Currently used IDs
 * `0xC2200311` - Rin Yu Research
   * `0xF7F7EE03` - ver `0x0400` - [Vectored Thruster Array Control Interface](VTACI.md)
 
+* `0x5672746B` - Vartok hardware
+  * `0xC0F00001` - ver `0x0001` - [Speaker Hardware](speaker.md)
+
 * Various Vendors
   * `0x11E0DACC` - ver `0x0004` - [Integrated Activity Control Module](cpu-control.md)
   * `0x17400011` - ver `~     ` - [Flashable ROM](ROM.md)
@@ -43,4 +47,3 @@ Peripherals (HIC/SSI)
 
 * `0x59EA5742` - Meisaka Engineering and Integration
   * `0x70E3E4FF` - ver `~     ` - [Embedded Display Controller](EDC.md)
-
