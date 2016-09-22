@@ -25,7 +25,7 @@ Cycles | Value       | Description
 0      | 0x00 - 0x07 | A, B, C, X, Y, Z, I, J
 0      | 0x08 - 0x0F | [register as above]
 1      | 0x10 - 0x17 | [register + additional word]
-0      | 0x18        | [SP] if destination (being written to), [SP++] if source (being read from)
+0      | 0x18        | [--SP] if destination (being written to), [SP++] if source (being read from)
 0      | 0x19        | [SP]
 1      | 0x1A        | [SP + additional word]
 0      | 0x1B        | SP
