@@ -26,13 +26,13 @@ Interrupt Commands
  	- C: Number of ticks since last call in C
  - **0x0002**: `SET_INT`
  	- B: Interrupt message set to B. Zero to disable.
-  - **0x0010**: `REAL_TIME`
+ - **0x0010**: `REAL_TIME`
 	- Returns the absolute time in the Common Era, in the format below.
-  - **0x0011**: `RUN_TIME`
+ - **0x0011**: `RUN_TIME`
 	- Returns the elapsed time since power was applied, in the format below.
-  - **0x0012**: `SET_REAL_TIME`
+ - **0x0012**: `SET_REAL_TIME`
 	- Sets the absolute time, based on the format below.
-  - **0xffff**: `RESET`
+ - **0xffff**: `RESET`
 	- Resets to initial state, as though the DCPU was restarted. (Timer
           disabled, elapsed run time reset to 0.)
 
