@@ -117,7 +117,7 @@ Cycles | Opcode | Mnemonic | Description
 4      | 0x08   | INT a    | software interrupt with message a
 1      | 0x09   | IAG a    | a = IA
 1      | 0x0A   | IAS a    | IA = a
-3      | 0x0B   | RFI a    | disable interrupt queuing, A = [SP++], PC = [SP++] (note a is not actually used)
+3      | 0x0B   | RFI a    | disable interrupt queuing, A = [SP++], PC = [SP++]; (note a is not actually used)
 2      | 0x0C   | IAQ a    | if a != 0: interrupts go to queue, if a == 0: intterupts trigger normally
        | 0x0D   |          | 
        | 0x0E   |          | 
