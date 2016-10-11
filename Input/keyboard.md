@@ -12,7 +12,7 @@ Generic Keyboard
 | Device type ID | 0x30c17406 | Generic ASCII Keyboard
 |        Version | 1          | Fixed Version
 
-A generic input keyboard.
+A generic input keyboard.  All input is buffered in an 8 item queue, excess keys presses are lost.  In addition, the "CHECK_KEY" functionality will only work with up to 8 keys pressed simultaneously, more then that will result in losing the earliest pressed keys.
 
 Interrupt Commands
 ----
