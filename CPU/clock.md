@@ -37,14 +37,26 @@ Interrupt Commands
           disabled, elapsed run time reset to 0.)
 
 
-Time Format
+Real Time Format
 ----
-All interrupts return the real time in the same format:
+The REAL_TIME interrupt returns time in the following format:
 
 - `B`: Year (Earth year, CE/AD)
 - `C`: Month and date
     - Month is high byte; 1 = January, 12 = December
     - Date is low byte; days into the month, 1-31.
+- `X`: Hours and Minutes
+    - Hours are high byte; 0-23, where 0 is midnight, 12 is noon.
+    - Minutes are low byte; 0-59
+- `Y`: Seconds; 0-59
+- `Z`: Milliseconds; 0-999
+
+Run Time Format
+----
+The RUN_TIME interrupt returns time in the following format:
+
+- `C`: Days
+    - Number of days
 - `X`: Hours and Minutes
     - Hours are high byte; 0-23, where 0 is midnight, 12 is noon.
     - Minutes are low byte; 0-59
