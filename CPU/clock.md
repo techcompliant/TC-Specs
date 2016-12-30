@@ -58,7 +58,7 @@ The RUN_TIME interrupt returns time in the following format:
 - `C`: Days
     - Number of days
 - `X`: Hours and Minutes
-    - Hours are high byte; 0-23, where 0 is midnight, 12 is noon.
+    - Hours are high byte; 0-23
     - Minutes are low byte; 0-59
 - `Y`: Seconds; 0-59
 - `Z`: Milliseconds; 0-999
