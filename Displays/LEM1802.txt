@@ -46,7 +46,14 @@ Interrupt behavior:
        If B is 0, the default palette is used instead.
     3: SET_BORDER_COLOR
        Reads the B register, and sets the border color to palette index B&0xF
-
+    4: MEM_DUMP_FONT
+       Reads the B register, and writes the default font data to DCPU-16 ram
+       starting at address B.
+       Halts the DCPU-16 for 256 cycles
+    5: MEM_DUMP_PALETTE
+       Reads the B register, and writes the default palette data to DCPU-16
+       ram starting at address B.       
+       Halts the DCPU-16 for 16 cycles
 
 Video ram:
     The LEM1802 has no internal video ram, but rather relies on being assigned
