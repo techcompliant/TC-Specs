@@ -41,6 +41,8 @@ Currently used IDs
   * `0x11E0DACC` - ver `0x0004` - [Integrated Activity Control Module](cpu-control.md)
   * `0x17400011` - ver `~     ` - [Flashable ROM](ROM.md)
 
+* `0xf6976d00` - Chartronics, Inc.
+  * `0xcff2a11d` - ver `0x0001` - [HSDP-1D High Speed Data Printer](Simple Outputs/HSDP-1D.md)
 
 Peripherals (HIC/SSI)
 =====================
