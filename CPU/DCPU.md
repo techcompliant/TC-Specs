@@ -33,7 +33,7 @@ Cycles | Value       | Description
 0      | 0x1D        | EX
 1      | 0x1E        | [additional word]
 1      | 0x1F        | additional word (literal)
-0      | 0x20 - 0x3F | literal value 0xFFFF - 0x1E (1 to 30) (literal)
+0      | 0x20 - 0x3F | literal value 0xFFFF - 0x1E (-1 to 30) (literal)
 
 Instructions:
 
