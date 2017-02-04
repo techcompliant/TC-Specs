@@ -3,7 +3,7 @@ Currently used IDs
 
 * `0x1C6C8B36` - Nya Elektriska
   * `0x12D1B402` - ver `0x0001` - [Generic Timer](clock.md)
-  * `0x30CF7406` - ver `0x0001` - [Generic ASCII Keyboard](keyboard.md)
+  * `0x30C17406` - ver `0x0001` - [Generic ASCII Keyboard](keyboard.md)
   * `0x734DF615` - ver `0x1802` - [Low Energy Monitor](LEM1802.txt)
 
 * `0x1EB37E91` - Mackapar Media
