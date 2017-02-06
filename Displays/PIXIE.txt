@@ -14,7 +14,7 @@ Description:
 
     PIXIE has the same interrupt behaviour as LEM1802, but it also supports
     a 128x96 resolution graphics mode with 2-16 colors. Graphics mode is
-    enabled by specifying the video_ram address and the number of colors.
+    enabled with a new interrupt that specifies the number of colors.
     If using less then 16 color palette, the lowest colors in LEM1802 text
     mode palette are used.
 
