@@ -82,3 +82,13 @@ Graphics mode video ram:
     word addresses 20 through 787. Each of these addresses accesses
     one word (16 pixels) of a single bitplane. Image with 16 colors
     has four bitplanes like this.
+
+Hardware ID
+    PIXIE hardware id is 0x774df615, while LEM1802 hardware id is
+    0x734df615. To guarantee full compatibility with all LEM1802
+    software, PIXIE has a dip switch located in the back side.
+
+    Dip swicth has two positions that can be used to change the
+    PIXIE's hardware id:
+      0: 0x734df615 (LEM1802)
+      1: 0x774df615 (PIXIE)
