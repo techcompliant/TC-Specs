@@ -2,7 +2,7 @@ PIXIE
 
 
 DCPU-16 Hardware Info:
-    Name: PIXIE - Video Generator
+    Name: PIXIE - Compatible Video Generator
     ID: 0x774df615, version: 0x1802
     Manufacturer: 0x00000000 (Manufacturer not yet found)
 
@@ -25,9 +25,8 @@ Interrupt behavior:
 
     Interrupts 0 to 5 are compatible with LEM1802.
 
-    16: GRAPHICS_MODE
-       Reads the B register, and prepares the graphics mode with according
-       number of colors:
+    16: SET_VIDEO_MODE
+       Reads the B register, and changes to specified video mode:
 
           0: Text mode (LEM1802 standard)
           1: Graphics mode, 2 colors
@@ -44,22 +43,23 @@ Interrupt behavior:
 Graphics mode video ram:
     a 128 by 96 screen is organized in 1-4 bitplanes of 768 words each.
     Each bitplane consists of 96 rows of 8 words. Number of bitplanes
-    depends on the number of colors. 2 color mode has only bitplane0,
-    while 16 color mode has all bitplanes from 0 to 3.
+    depends on the number of colors. 2 color mode has only one bitplane,
+    while 16 color mode has four bitplanes.
 
               number  memory  total
     bitplane  colors  offset  memory
     --------  ------  ------  ------
-       0         2        0     768
-       1         4      768    1536
-       2         8     1536    2304
-       3        16     2304    3072
+       0         2        0     768   2, 4, 8 and 16 color modes
+       1         4      768    1536   4, 8 and 16 color modes
+       2         8     1536    2304   8 and 16 color modes
+       3        16     2304    3072   16 color mode
 
-    Bitplane number is used as a bit position to refer the color palette:
+    Bitplane number is used as a bit position to refer the color palette.
+    The bitplane 0 bit is the least significant bit in LEM palette. 
         e.g. if bitplane 0 is clear, but bitplanes 1-3 are set,
              the palette color would be 0b1110 -> 0xE -> 14
 
-    Images in memory are stored in a linear fashion; each word of data
+    Gaphics are stored to bitplane in a linear fashion; each word of data
     on a line is located at an address that is one greater than the word on
     its left. i.e.  Each line is a "plus one" continuation of the previous
     line.
