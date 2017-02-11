@@ -25,6 +25,29 @@ Interrupt behavior:
 
     Interrupts 0 to 5 are compatible with LEM1802.
 
+    0: MEM_MAP_SCREEN
+       Reads the B register, and maps the video ram to DCPU-16 ram starting
+       at address B. See below for a description of video ram.
+       If B is 0, the screen is disconnected.
+    1: MEM_MAP_FONT
+       Reads the B register, and maps the font ram to DCPU-16 ram starting
+       at address B. See below for a description of font ram.
+       If B is 0, the default font is used instead.
+    2: MEM_MAP_PALETTE
+       Reads the B register, and maps the palette ram to DCPU-16 ram starting
+       at address B. See below for a description of palette ram.
+       If B is 0, the default palette is used instead.
+    3: SET_BORDER_COLOR
+       Reads the B register, and sets the border color to palette index B&0xF
+    4: MEM_DUMP_FONT
+       Reads the B register, and writes the default font data to DCPU-16 ram
+       starting at address B.
+       Halts the DCPU-16 for 256 cycles
+    5: MEM_DUMP_PALETTE
+       Reads the B register, and writes the default palette data to DCPU-16
+       ram starting at address B.       
+       Halts the DCPU-16 for 16 cycles
+
     16: SET_VIDEO_MODE
        Reads the B register, and changes to specified video mode:
 
