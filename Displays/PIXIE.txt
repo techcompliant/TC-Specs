@@ -4,7 +4,7 @@ PIXIE
 DCPU-16 Hardware Info:
     Name: PIXIE - Compatible Video Generator
     ID: 0x774df615, version: 0x1802
-    Manufacturer: 0x00000000 (Manufacturer not yet found)
+    Manufacturer: 0x83610EC5 (Agnus Micro Devices)
 
 
 Description:
@@ -12,7 +12,7 @@ Description:
     famous Nya Elektriska's LEM1802. PIXIE is a perfect way to upgrade
     your DCPU and start enjoying the latest games and graphics.
 
-    PIXIE has the same interrupt behaviour as LEM1802, but it also supports
+    PIXIE has the same interrupt behavior as LEM1802, but it also supports
     a 128x96 resolution graphics mode with 2-16 colors. Graphics mode is
     enabled with a new interrupt that specifies the number of colors.
     If using less then 16 color palette, the lowest colors in LEM1802 text
@@ -57,10 +57,10 @@ Interrupt behavior:
           3: Graphics mode, 8 colors
           4: Graphics mode, 16 colors
 
-       Graphics mode will use the same video_ram starting address as text mode,
-       but video_ram size and layout are different. Graphics mode will also use
+       Graphics mode will use the same video ram starting address as text mode,
+       but video ram size and layout are different. Graphics mode will also use
        the same palette as text mode, but only the colors 0-n (depending on the
-       color depth) are used. Fontram is not relevant in graphics mode.
+       color depth) are used. Font ram is not relevant in graphics mode.
 
 
 Graphics mode video ram:
@@ -69,23 +69,26 @@ Graphics mode video ram:
     depends on the number of colors. 2 color mode has only one bitplane,
     while 16 color mode has four bitplanes.
 
-              number  memory  total
-    bitplane  colors  offset  memory
-    --------  ------  ------  ------
-       0         2        0     768   2, 4, 8 and 16 color modes
-       1         4      768    1536   4, 8 and 16 color modes
-       2         8     1536    2304   8 and 16 color modes
-       3        16     2304    3072   16 color mode
+              memory  total
+    bitplane  offset  memory
+    --------  ------  ------
+       0          0     768   2, 4, 8 and 16 color modes
+       1        768    1536   4, 8 and 16 color modes
+       2       1536    2304   8 and 16 color modes
+       3       2304    3072   16 color mode
 
     Bitplane number is used as a bit position to refer the color palette.
     The bitplane 0 bit is the least significant bit in LEM palette. 
         e.g. if bitplane 0 is clear, but bitplanes 1-3 are set,
              the palette color would be 0b1110 -> 0xE -> 14
 
-    Gaphics are stored to bitplane in a linear fashion; each word of data
+    Graphics are stored to bitplane in a linear fashion; each word of data
     on a line is located at an address that is one greater than the word on
     its left. i.e.  Each line is a "plus one" continuation of the previous
     line.
+    
+    Following table illustrates the graphics mode video ram if start address 
+    is set to 20 with MEM_MAP_SCREEN interrupt.
                    _______________________________________
                   |    |    |    |    |    |    |    |    |
                   | 20 | 21 | 22 | 23 | 24 | 25 | 26 | 27 |
@@ -106,12 +109,18 @@ Graphics mode video ram:
     one word (16 pixels) of a single bitplane. Image with 16 colors
     has four bitplanes like this.
 
+
 Hardware ID
     PIXIE hardware id is 0x774df615, while LEM1802 hardware id is
     0x734df615. To guarantee full compatibility with all LEM1802
-    software, PIXIE has a dip switch located in the back side.
+    software, PIXIE has a dip switch located in the control panel.
 
-    Dip swicth has two positions that can be used to change the
+    Dip switch has two positions that can be used to change the
     PIXIE's hardware id:
-      0: 0x734df615 (LEM1802)
-      1: 0x774df615 (PIXIE)
+
+        0: 0x734df615 (LEM1802)
+        1: 0x774df615 (PIXIE)
+    
+    This setting changes only the hardware ID. Graphics mode is 
+    available in both positions.
+
