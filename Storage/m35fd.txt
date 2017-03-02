@@ -36,13 +36,37 @@ Manufacturer: 0x1eb37e91 (MACKAPAR)
 ----! DESCRIPTION !-------------------------------------------------------------
     '-------------'
 
-The Mackapar 3.5" Floppy Drive is compatible with all standard 3.5" 1440 KB
-floppy disks. The floppies need to be formatted in 16 bit mode, for a total of
-737,280 words of storage. Data is saved on 80 tracks with 18 sectors per track,
-for a total of 1440 sectors containing 512 words each.
-The M35FD works is asynchronous, and has a raw read/write speed of 30.7kw/s.
-Track seeking time is about 2.4 ms per track.
+The Mackapar 3.5" Floppy Drive is compatible with all standard 3.5" floppy disks. 
+3.5" floppies are available in multiple various sizes, ranging from 40 kw to 
+224 kw.  The M35FD is asynchronous in both read and write modes, spins at 300
+RPM, and has a raw read/write speed of 17.5kw/s with high density disks, and 
+10kw/s with lower density disks.  Track to track seek times range from 38~52ms,
+and full stroke seek is no more then 550ms.
 
+
+    .-----------------.
+----! DISK GEOMETRIES !---------------------------------------------------------
+    '-----------------'
+    
+Low Density Single Sided - 40kw/80kb disk
+
+80 sectors of 512 words each
+1 side at 20 tracks of 4 sectors each
+
+Low Density Double Sided - 80kw/160kb disk
+
+160 sectors of 512 words each
+2 sides at 20 tracks of 4 sectors each
+
+High Density Single Sided - 112kw/224kb disk
+
+224 sectors of 512 words each
+1 side at 32 tracks of 7 sectors each
+
+High Density Double Sided - 224kw/448kb disk
+
+448 sectors of 512 words each
+2 sides at 32 tracks of 7 sectors each
 
 
     .--------------------.
@@ -65,13 +89,17 @@ A: Behavior:
    Sets B to 1 if reading is possible and has been started, anything else if it
    fails. Reading is only possible if the state is STATE_READY or
    STATE_READY_WP.
-   Protects against partial reads.
+   Protects against partial reads.  Accessing beyond the valid sector count of 
+   the current floppy may cause damage to the disk, the drive, or both.
 
 3  Write sector. Writes sector X from DCPU ram starting at Y.
    Sets B to 1 if writing is possible and has been started, anything else if it
    fails. Writing is only possible if the state is STATE_READY.
-   Protects against partial writes.
+   Protects against partial writes.  Accessing beyond the valid sector count of 
+   the current floppy may cause damage to the disk, the drive, or both.
 
+4  Disk Geometry.  Sets X to number of sides, Y to number of tracks, and Z to 
+   number of sectors.  If no disk is present, values are undefined.
 
     .-------------.
 ----! STATE CODES !-------------------------------------------------------------
