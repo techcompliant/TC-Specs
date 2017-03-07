@@ -1,0 +1,66 @@
+
+   \\ TALON NAVIGATION //
+   "walk among the stars"
+
+
+DCPU-16 Hardware Info:
+    Name: Pulsar Positioning System (navigator)
+    ID: 0xfce26509
+    Version: 0xb01e
+    Manufacturer: 0x982d3e46 (TALON NAVIGATION SYSTEMS)
+
+Description:
+    PPS can determine it's position using radio-wave and x-ray signals 
+    from pulsars. PPS can function in all locations of the Milky Way, but 
+    requires a dish antenna of 2m in diameter. Talon is the only provider
+    of PPS systems that can benefit from over 2000 beacon pulsars for 
+    measuring position.
+
+    Talon PPS hardware provides the fastest signal acquisition on market.
+    It can cold start (no time, no position, no ephemeris) in <55 seconds
+    and maintains a steady position update rate of whopping 1 Hz.
+
+Interrupt behavior:
+    When a HWI is received by the PPS, it reads the A register and does one
+    of the following actions:
+
+    0: RESET_LOCAL_ORIGO
+       Sets current position as the new origo for subsequent 
+       GET_LOCAL_COORDINATES -queries.
+    
+       Register C is set with the operation status:
+          0x0000       : Success
+          0x8000       : No fix
+          0x8001       : Cannot reset with reduced accuracy
+          0xffff       : Equipment malfunction
+
+    1: GET_LOCAL_COORDINATES
+       Stores the current position data to DCPU-16 registers X, Y and Z.
+       Halts the DCPU-16 for 6 cycles.
+
+       The data is encoded as
+         X (INT16) x-coordinate (unit 1km)
+         Y (INT16) y-coordinate (unit 1km)
+         Z (INT16) z-coordinate (unit 1km)
+
+       Register C is set with the operation status:
+          0x0000       : Success
+          0x0001       : Success, but reduced accuracy
+          0x8000       : Failure, no pulsar fix
+          0x8002       : Failure, out of range
+          0xffff       : Failure, equipment malfunction
+
+    2: GET_GLOBAL_COORDINATE_X
+    3: GET_GLOBAL_COORDINATE_Y
+    4: GET_GLOBAL_COORDINATE_Z
+
+       Stores the current x/y/z-coordinate (INT32) to DCPU-16 registers 
+         A: 16 bits high
+         B: 16 bits low
+
+       Register C is set with the operation status:
+          0x0000       : Success
+          0x0001       : Success, but reduced accuracy
+          0x8000       : No fix
+          0xffff       : Equipment malfunction
+
