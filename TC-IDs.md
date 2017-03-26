@@ -9,6 +9,9 @@ Currently used IDs
 * `0x1EB37E91` - Mackapar Media
   * `0x4AC5525D` - ver `0x0001` - [Mackapar 5.25" Hard Disk Drive](m525hd.md)
   * `0x4FD524C5` - ver `0x000B` - [Mackapar 3.5" Floppy Drive](m35fd.txt)
+  
+* `0x38B8A4D9` - Silicon Stick Enterprises
+  * `0x17D5005~` - ver `0x0001` - [General-Purpose Integrated Memory Module](gpimm.md)
 
 * `0x59EA5742` - Meisaka Engineering and Integration
   * `0x70E3E4FF` - ver `~     ` - [Embedded Display Controller](EDC.md)
