@@ -1,6 +1,5 @@
 Currently used IDs
 ==================
-
 * `0x1C6C8B36` - Nya Elektriska
   * `0x12D1B402` - ver `0x0001` - [Generic Timer](CPU/clock.md)
   * `0x30C17406` - ver `0x0001` - [Generic ASCII Keyboard](Input/keyboard.md)
@@ -10,9 +9,15 @@ Currently used IDs
   * `0x4AC5525D` - ver `0x0001` - [Mackapar 5.25" Hard Disk Drive](Storage/m525hd.md)
   * `0x4FD524C5` - ver `0x000B` - [Mackapar 3.5" Floppy Drive](Storage/m35fd.txt)
 
+* `0x4c534453` - LifeSys
+  * `0x2FF23233` - ver `~     ` - [LifeSys GCA](Sensors/LifeSYS-GCA3623.md) 
+  
 * `0x59EA5742` - Meisaka Engineering and Integration
   * `0x70E3E4FF` - ver `~     ` - [Embedded Display Controller](Displays/EDC.md)
   * `0x75F6A113` - ver `0x0538` - [IMVA](Displays/IMVA.md)
+
+* `0x83610EC5` - Agnus Micro Devices
+  * `0x774df615` - ver `0x1802` - [PIXIE](Displays/PIXIE.txt)
 
 * `0x982D3E46` - Talon Navigation Systems
   * `0xFCE24728` - ver `0xC59F` - [Local Positioning System](Navigation/TalonNav-LPS.md)
