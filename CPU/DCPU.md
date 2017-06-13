@@ -74,7 +74,7 @@ Note that only the 6-bit `a` operand can hold inline literals (0x20-0x3f).
 | 3      | 0x08   | `MOD b, a` | `b = b % a`, if `a == 0` sets `b` to 0, never sets `EX`; `a` and `b` are unsigned
 | 3      | 0x09   | `MDI b, a` | As `MOD`, with `a` and `b` signed. Rounds towards 0 (see below).
 | 1      | 0x0A   | `AND b, a` | `b = b & a`
-| 1      | 0x0B   | `BOR b, a` | `b = b | a`
+| 1      | 0x0B   | `BOR b, a` | `b = b \| a`
 | 1      | 0x0C   | `XOR b, a` | `b = b ^ a`
 | 1      | 0x0D   | `SHR b, a` | `b = b >>> a`, `EX = ((b << 16) >> a) & 0xFFFF`, logical shift (`b` unsigned)
 | 1      | 0x0E   | `ASR b, a` | `b = b >> a`, `EX = ((b << 16) >>> a) & 0xFFFF`, arithmetic shift (`b` signed)
