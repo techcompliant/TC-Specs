@@ -47,6 +47,7 @@ All devices with the same hardware class and standard API ID can be used in the 
  * 5 - memory controllers
    * 1 DMA
    * 4 non-volatile memory devices
+   * 8 memory management units (MMUs)
  * 6 - multimedia capture
  * 7 - raster display (2D)
    * 0 - text cell based, command driven, monochrome display

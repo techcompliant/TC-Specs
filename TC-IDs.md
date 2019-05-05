@@ -23,6 +23,9 @@ Currently used IDs
   * `0xFCE24728` - ver `0xC59F` - [Local Positioning System](Navigation/TalonNav-LPS.md)
   * `0XFCE26509` - ver `0xB01E` - [Pulsar Positioning System](Navigation/pps.txt)
 
+* `0x9CC16DAB` - Kingston Chronometers and Memorabilia
+  * `0x58E2110B` - ver `0x000B` - [KCM-11 MMU](Memory/KCM-11.md)
+
 * `0xA87C900E` - Kai Communications
   * `0xD0F090C0` - ver `0x0001` - [Remote Activity Control Module](IO%20Data/KaiComm-RACM.md)
   * `0xD00590A5` - ver `0x0010` - [Radiofrequency Communication Interface](IO%20Data/KaiComm-RCI.md)
